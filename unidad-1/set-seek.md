@@ -17,7 +17,7 @@ creo que la aleatoriedad le da al arte generativo una sensación de realidad y/o
 
   Por ejemplo, si quiero crear un personaje no solo necesito características físicas, sino que también debo de pensar en que esas características físicas tengan un sentido dentro del mundo, la historia y el pasado de mi personaje (una creación libre, pero con límites, como la coherencia), así mismo como para animar, modelar o hacer rigging a un personaje o escenario, debo pensar en como funciona el mundo natural para no hacer cosas rígidas o sin sentido, poder darle vida a lo inanimado. Finalmente y mas importante, la creación de muchos de los proyectos en la carrera se basan en generar una experiencia para el usuario y al hacer eso tambien hay que marcar límites por las tecnologias usadas, el contexto y gustos de mi usuario. 
 
-### Actividad 02
+### Actividad 03
 
 modificaciones 
 1. quiero cambiar el color, por lo que voy a agregar la opción de que se muestre dicho color en el walker. Al ejecutar el código, sí se cambiaba de color pero como no modifique cada cuanto se moviera (se mueve 1 pixel cada vez) entonces no se identifican los colores claramente.
@@ -33,6 +33,42 @@ show() {
  ```js
 const stepSize = 4;
  ```
+
+### Actividad 04
+
+* **En tus propias palabras cuál es la diferencia entre una distribución uniforme y una no uniforme de números aleatorios**
+  entiendo que es como los valores se reparten en cierto rango, porque en la uniforme se muestran los valores mas uniformemente (no se favorece ningún número en especifico), y en no uniforme esto no existe, se muestran los valores que estén más cercanos a la media.
+
+* **Modifica el código de la caminata aleatoria para que utilice una distribución no uniforme, favoreciendo el movimiento hacia la derecha**
+
+ ```js
+function setup() {
+  createCanvas(100, 100);
+  background(200);
+
+  describe('Tres líneas horizontales con distribuciones diferentes. La superior es uniforme, la del medio favorece la derecha, la inferior usa distribución gaussiana amplia.');
+}
+
+function draw() {
+  noStroke();
+  fill(0, 10);
+
+  let x = random(100);
+  let y = 25;
+  circle(x, y, 5);
+
+  
+  x = pow(random(1), 0.5) * 100;   y = 50;
+  circle(x, y, 5);
+
+  x = randomGaussian(50, 10);
+  y = 75;
+  circle(x, y, 5);
+}
+ ```
+
+
+
 
 
 
