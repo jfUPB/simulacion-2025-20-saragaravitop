@@ -16,3 +16,24 @@ creo que la aleatoriedad le da al arte generativo una sensación de realidad y/o
   > la capacidad o la opción de creación libre bajo unos limites especificos para crear orden y no caos.   
 
   Por ejemplo, si quiero crear un personaje no solo necesito características físicas, sino que también debo de pensar en que esas características físicas tengan un sentido dentro del mundo, la historia y el pasado de mi personaje (una creación libre, pero con límites, como la coherencia), así mismo como para animar, modelar o hacer rigging a un personaje o escenario, debo pensar en como funciona el mundo natural para no hacer cosas rígidas o sin sentido, poder darle vida a lo inanimado. Finalmente y mas importante, la creación de muchos de los proyectos en la carrera se basan en generar una experiencia para el usuario y al hacer eso tambien hay que marcar límites por las tecnologias usadas, el contexto y gustos de mi usuario. 
+
+### Actividad 02
+
+modificaciones 
+1. quiero cambiar el color, por lo que voy a agregar la opción de que se muestre dicho color en el walker. Al ejecutar el código, sí se cambiaba de color pero como no modifique cada cuanto se moviera (se mueve 1 pixel cada vez) entonces no se identifican los colores claramente.
+
+show() {
+    stroke(random(255), random(255), random(255));
+    strokeWeight(2);
+    point(this.x, this.y);
+  }
+
+3. Voy a modificar cada cuanto se mueve el walker para que se identifiquen mas los colores, entonces hare que se mueva cada 4 pixeles. Al ejecutar el codigo si se identifican mas los colores pero investigué que entonces el walker se mueve en los multiplos de 4 entonces genera una cuadricula 4x4 dejando un punto cada que pasa.
+
+const stepSize = 4;
+
+
+
+
+
+
