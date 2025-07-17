@@ -7,6 +7,12 @@ creo que la aleatoriedad le da al arte generativo una sensación de realidad y/o
 
 ### Actividad 02
 
-* **Cuál es el papel de la aleatoriedad en su obra.**
+* **Cuál es el papel de la aleatoriedad en su obra.**  
+  me parece que en la obra de Sofi la aleatoriedad aporta de manera especial al hacer que las raíces parezcan vivas, tanto por los movimientos como por la intensidad de los colores y la forma que estas toman, ya que no son movimientos rígidos o estructurados (como se espera que sean las máquinas) sino que son movimientos fluidos, como si las raíces estuvieran vivas y bailaran fluidamente al rededor de la música. Creo que es un trabajo muy lindo que aplica la aleatoriedad de una manera muy poética (si nos sentamos a pensar más en el concepto que transmite y no en el tecnicismo matemático).
   
-* **Según tu perfil profesional, cómo se aplica el concepto de aleatoriedad en el tipo de proyectos que desarrollas. Ilustra tu respuesta con ejemplos concretos.**
+* **Según tu perfil profesional, cómo se aplica el concepto de aleatoriedad en el tipo de proyectos que desarrollas. Ilustra tu respuesta con ejemplos concretos.**     
+  Mi perfil profesional lo estoy encaminando hacia la creación de mundos (por así decirlo), me estoy desarrollando no solo como animadora (que es la rama que elegí) sino como artista, es decir, hay muchas cosas que todavia quiero desarrollar hacia un nivel mas profesional, sin dejar de lado el hecho de que en algunos casos debo de enfocarme mas en ciertos perfiles; pero por el momento ese es el plan, así que veo la aleatoriedad como:       
+
+  > la capacidad o la opción de creación libre bajo unos limites especificos para crear orden y no caos.   
+
+  Por ejemplo, si quiero crear un personaje no solo necesito características físicas, sino que también debo de pensar en que esas características físicas tengan un sentido dentro del mundo, la historia y el pasado de mi personaje (una creación libre, pero con límites, como la coherencia), así mismo como para animar, modelar o hacer rigging a un personaje o escenario, debo pensar en como funciona el mundo natural para no hacer cosas rígidas o sin sentido, poder darle vida a lo inanimado. Finalmente y mas importante, la creación de muchos de los proyectos en la carrera se basan en generar una experiencia para el usuario y al hacer eso tambien hay que marcar límites por las tecnologias usadas, el contexto y gustos de mi usuario. 
