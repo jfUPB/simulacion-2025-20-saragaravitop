@@ -21,17 +21,18 @@ creo que la aleatoriedad le da al arte generativo una sensación de realidad y/o
 
 modificaciones 
 1. quiero cambiar el color, por lo que voy a agregar la opción de que se muestre dicho color en el walker. Al ejecutar el código, sí se cambiaba de color pero como no modifique cada cuanto se moviera (se mueve 1 pixel cada vez) entonces no se identifican los colores claramente.
-
+ ```js
 show() {
     stroke(random(255), random(255), random(255));
     strokeWeight(2);
     point(this.x, this.y);
   }
+ ```
 
-3. Voy a modificar cada cuanto se mueve el walker para que se identifiquen mas los colores, entonces hare que se mueva cada 4 pixeles. Al ejecutar el codigo si se identifican mas los colores pero investigué que entonces el walker se mueve en los multiplos de 4 entonces genera una cuadricula 4x4 dejando un punto cada que pasa.
-
+2. Voy a modificar cada cuanto se mueve el walker para que se identifiquen mas los colores, entonces hare que se mueva cada 4 pixeles. Al ejecutar el codigo si se identifican mas los colores pero investigué que entonces el walker se mueve en los multiplos de 4 entonces genera una cuadricula 4x4 dejando un punto cada que pasa.
+ ```js
 const stepSize = 4;
-
+ ```
 
 
 
