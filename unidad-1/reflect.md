@@ -25,8 +25,15 @@ R//**  un paseo o caminata en simulación es un algoritmo que se mueve en difere
 
 #### Parte 2: reflexión sobre tu proceso (Metacognición)
 
-1. **¿Cuál fue el concepto más abstracto o difícil de “visualizar” para ti en esta unidad? ¿Qué hiciste para finalmente comprenderlo?
-R//** La verdad para mi todos los conceptos fueron dificiles de entender al principio, como que el concepto lo tengo que leer varias veces y hacer ejemplos en la vida cotidiana o relacionarlos a algo que me gusta para comprenderlos mejor, aunque he de decir que los conceptos de la distribucion de probabilidades fueron mas faciles de comprender porque los vi el semestre pasado en procesos estocásticos, solo que no recordaba y los habia comprendido mas matematicamente, y aplicarlos fue verlos de otra forma. 
-Describe un momento durante el desarrollo de tu obra final (Actividad 08) en el que un “error” o un resultado inesperado te llevó a una idea creativa interesante.
-Al combinar diferentes técnicas de aleatoriedad, ¿Cuál fue el mayor desafío? ¿La interacción entre los sistemas, el control de los parámetros, el rendimiento?
-Si tuvieras que empezar la Actividad 08 de nuevo, ¿Qué harías de manera diferente basándote en lo que sabes ahora?
+1. **¿Cuál fue el concepto más abstracto o difícil de “visualizar” para ti en esta unidad? ¿Qué hiciste para finalmente comprenderlo?      
+R//** La verdad para mi todos los conceptos fueron dificiles de entender al principio, como que el concepto lo tengo que leer varias veces y hacer ejemplos en la vida cotidiana o relacionarlos a algo que me gusta para comprenderlos mejor, aunque he de decir que los conceptos de la distribucion de probabilidades fueron mas faciles de comprender porque los vi el semestre pasado en procesos estocásticos, solo que no recordaba y los habia comprendido mas matematicamente, y aplicarlos fue verlos de otra forma.
+
+2. **Describe un momento durante el desarrollo de tu obra final (Actividad 08) en el que un “error” o un resultado inesperado te llevó a una idea creativa interesante.        
+R//** No se si podria ser considerado un error, porque para llegar a mi trabajo final, primero comence haciendo walkers aleatorios por todo el lienzo de diferentes colores y luego pense hacerlo mas interesante agregandole imagenes y una cosa llevo a la otra y termine con la obra que tengo ahora. Básicamente, mis errores fueron de ejecución en codigo (tipo tenia algo mal escrito que no permitia que funcionara como yo queria) pero nunca tuve un error que saliera bien y me permitiera seguir adelante con esa idea.
+Aunque sí tuve errores donde en el lienzo se hacia algo diferente a lo que yo queria no eran errores que se vieran lindos, al contario no me gustaba como se veia, entonces siempre los descarte.
+
+3. **Al combinar diferentes técnicas de aleatoriedad, ¿Cuál fue el mayor desafío? ¿La interacción entre los sistemas, el control de los parámetros, el rendimiento?     
+R//** La verdad no sabría especificamente que fue, porque una unica vez trabaje con varios sistemas, que fue en la actividad 08 y fueron como los que mas entendí y los que tenía mas claro como aplicarlos, entonces fue muy sencillo combinarlos.
+
+4. **Si tuvieras que empezar la Actividad 08 de nuevo, ¿Qué harías de manera diferente basándote en lo que sabes ahora?
+R//** probablemente trataría de usar otros conceptos o agregarle otros para crear algo mas único y de pronto que me represente más. Que se vea mas díficil o mas completo a nivel de sistemas. Algo digno de un portafolio profesional. 
