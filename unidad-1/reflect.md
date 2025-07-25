@@ -40,8 +40,9 @@ R//** probablemente trataría de usar otros conceptos o agregarle otros para cre
 
 ### Actividad 10
 
-Compartí mi trabajo con Valeria Zuñiga, y después de ver y entender su obra estas son mis calificaciones: 
-**Rúbrica Analítica de Evaluación**    
+Compartí mi trabajo con Valeria Zuñiga, y después de ver y entender su obra estas son mis calificaciones:        
+
+**Rúbrica Analítica de Evaluación**       
 
 Interactiva a tiempo real: [ 5 ] / 5
 Es una obra generativa: [ 5 ] / 5
