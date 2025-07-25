@@ -6,8 +6,8 @@
 
 #### **Parte 1: recuperación de conocimiento (Retrieval Practice)** 
 
-1. **Describe la diferencia fundamental entre la aleatoriedad generada por `random()` y la apariencia de aleatoriedad del Ruido Perlin (`noise()`). ¿En qué tipo de situación usarías cada una?        
-R//** segun recuerdo, la aleatoriedad generada por `random()` es como el concepto visto desde lo más básico, como el ejemplo del dado, que la probabilidad de que salgan todas las caras del dado son las mismas, y la de `noise()` del ruido perlín es mas organizada (? como mas continua y/o natural.
+1. **Describe la diferencia fundamental entre la aleatoriedad generada por `random()` y la apariencia de aleatoriedad del Ruido Perlin (`noise()`). ¿En qué tipo de situación usarías cada una?            
+R//** segun recuerdo, la aleatoriedad generada por `random()` es como el concepto visto desde lo más básico, como el ejemplo del dado, que la probabilidad de que salgan todas las caras del dado son las mismas, y la de `noise()` del ruido perlín es mas organizada (? como mas continua y/o natural.   
 
     Usaría `random()`para tratar de representar algo que tenga que ver con probabilidades, y `noise()` sería mas como para representar elementos de la naturaleza, como el movimiento del mar.      
 
@@ -55,17 +55,17 @@ Compartí mi trabajo con Valeria Zuñiga, y después de ver y entender su obra e
 Me gusto mucho la obra, visualmente se ve muy atractiva en cuanto al color y al desplazamiento de las estrellas y los circulos, se mueven muy bacano. También resalto como la propuesta, o el concepto que uso Vale es muy curioso, porque me hizo pensar a la escena de Ratatouille donde Remi prueba el queso y la fresa y el "ve formas" que se relaciona a lo que esta saboreando, en este caso, seria ver sonidos, que es muy impresionante si lo vemos desde ese lado. 
 
 ### Actividad 11 
-1. **Continuar: ¿Qué actividad, ejemplo o explicación de esta unidad te resultó más reveladora o útil para tu aprendizaje? ¿Qué deberíamos mantener sí o sí?
+1. **Continuar: ¿Qué actividad, ejemplo o explicación de esta unidad te resultó más reveladora o útil para tu aprendizaje? ¿Qué deberíamos mantener sí o sí?      
    R//** el "obligar" a entender los conceptos con ejercicios practicos porque permiten aprender de manera mas efectiva. 
    
-2.  **Dejar de hacer: ¿Hubo alguna actividad o concepto que te pareció redundante, confuso o menos útil? ¿Hay algo que eliminarías o cambiarías por completo?
+2.  **Dejar de hacer: ¿Hubo alguna actividad o concepto que te pareció redundante, confuso o menos útil? ¿Hay algo que eliminarías o cambiarías por completo?     
    R//** me pareció muy repetitivo las acciones que se debian hacer en cada actividad, aunque es bueno para el aprendizaje tiende a ser siempre lo mismo (creo que afecta mas si uno no es creativo con las actividades). 
 
-3. **Empezar a hacer: ¿Qué te faltó en esta unidad? ¿Quizás más ejemplos de artistas, más desafíos técnicos, más teoría? ¿Qué idea tienes para hacerla mejor?
+3. **Empezar a hacer: ¿Qué te faltó en esta unidad? ¿Quizás más ejemplos de artistas, más desafíos técnicos, más teoría? ¿Qué idea tienes para hacerla mejor?      
    R//** si podria ser mas ejemplos de artistas, a veces uno se limita mucho por no tener muchos referentes. 
    
-4. **Balance Teoría-Práctica: ¿Cómo sentiste el equilibrio entre analizar los ejemplos del texto guía y ponerte a programar tus propios sketches? Explica tu respuesta.
+4. **Balance Teoría-Práctica: ¿Cómo sentiste el equilibrio entre analizar los ejemplos del texto guía y ponerte a programar tus propios sketches? Explica tu respuesta.     
    R//** Fue chévere, no soy mucho de leer estos conceptos porque me confunden mucho los tecnisismos pero la explicación que el profe daba me ayudaba a dejar todo mas claro. Personalmente, si me explican un concepto con el que me puedo relacionar porque me lo dicen en un lenguaje que comprendo más es todo mucho mas facil. 
    
-5. **Comentario Adicional: ¿Hay algo más que quieras compartir sobre tu experiencia en esta unidad?
+5. **Comentario Adicional: ¿Hay algo más que quieras compartir sobre tu experiencia en esta unidad?      
    R//**  nop. Fue una unidad divertida porque me permitió reconciliarme con la programación. 
