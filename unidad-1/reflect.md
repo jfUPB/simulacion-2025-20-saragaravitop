@@ -44,11 +44,11 @@ Compartí mi trabajo con Valeria Zuñiga, y después de ver y entender su obra e
 
 **Rúbrica Analítica de Evaluación**       
 
-Interactiva a tiempo real: [ 5 ] / 5
-Es una obra generativa: [ 5 ] / 5
-Combina los tres conceptos: [ 5 ] / 5
-Creatividad: [ 5 ] / 5
-Obra acorde al concepto: [ 5 ] / 5
+* Interactiva a tiempo real: [ 5 ] / 5
+* Es una obra generativa: [ 5 ] / 5
+* Combina los tres conceptos: [ 5 ] / 5
+* Creatividad: [ 5 ] / 5
+* Obra acorde al concepto: [ 5 ] / 5
 
 **comentario**    
 
