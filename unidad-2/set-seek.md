@@ -98,3 +98,20 @@ R//** Se está realizando un paso por referencia, ya que se está pasando un obj
 
 **¿Qué aprendiste?   
 R//** que los objetos en javaScript se pasan por referencia, porque modificarlos dentro de una función afecta el objeto original. Es importante usar nombres de variables consistentes para evitar errores, los valores, usar el paso por referencia es útil pero también puede causar errores si no se maneja con cuidado y finalmente, si se quiero evitar modificar el original, debo de hacer una copia del objeto. 
+
+### Actividad 04
+
+* **¿Para qué sirve el método mag()? Nota que hay otro método llamado magSq(). ¿Cuál es la diferencia entre ambos? ¿Cuál es más eficiente?
+  R//**
+  
+* **¿Para qué sirve el método normalize()?
+  R//**
+  
+* **Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
+  R//**
+  
+* **  El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
+  R//**
+* Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y la magnitud del vector resultante.
+* ¿Para que te puede servir el método dist()?
+* ¿Para qué sirven los métodos normalize() y limit()?
