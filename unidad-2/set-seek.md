@@ -5,7 +5,7 @@
 ### Actividad 01
 
 * **¿Cómo funciona la suma dos vectores en p5.js?      
-  R//** se usa el método `.add()`, que suma componente a componente. 
+  R//** se usa el método `.add()`, que suma componente a componente (internamente al usar ese método). 
 
 * **¿Por qué esta línea position = position + velocity; no funciona?      
   R//** no funciona porque position y velocity no son numeros sino que son objetos, entonces no los suma correctamente. 
@@ -58,3 +58,43 @@ class Walker {
   }
 }
 ```
+
+### Actividad 03
+
+**¿Qué resultado esperas obtener en el programa anterior?   
+R//** de acuerdo a lo que explico el profe, esperaba que el vector de position tuviera los valores (6, 9) inicialmente, y que después de llamar a la función, esos valores cambiaran a (20, 30). También esperaba ver ambos estados impresos en la consola.
+
+**¿Qué resultado obtuviste?   
+R//**  El resultado fue parecido pero, la consola mostró los valores esperados (6, 9) primero y luego (20, 30) después de modificar el vector, solo que ocurrió en una variable distinta llamada posicion, no en position (era un error de nombre). 
+
+**Recuerda los conceptos de paso por valor y paso por referencia en programación. Muestra ejemplos de este concepto en javascript.  
+R//**  
+
+**ejemplos pasos por valor**       
+
+Cuando pasamos tipos a una función, se pasa una copia del valor, y el original no se modifica.
+```js
+function cambiarValor(x) {
+  x = 10;
+}
+let numero = 5;
+cambiarValor(numero);
+console.log(numero); 
+```
+**ejemplo pasos por referencia**     
+
+Cuando pasamos un objeto, se pasa una referencia al original, y cualquier cambio afecta el original.
+```js
+function modificarVector(v) {
+  v.x = 100;
+}
+let v = createVector(10, 10);
+modificarVector(v);
+console.log(v.x); 
+```
+
+**¿Qué tipo de paso se está realizando en el código?     
+R//** Se está realizando un paso por referencia, ya que se está pasando un objeto p5.Vector a una función. Al modificar las propiedades x y y dentro de la función, se está modificando el mismo objeto original.
+
+**¿Qué aprendiste?   
+R//** que los objetos en javaScript se pasan por referencia, porque modificarlos dentro de una función afecta el objeto original. Es importante usar nombres de variables consistentes para evitar errores, los valores, usar el paso por referencia es útil pero también puede causar errores si no se maneja con cuidado y finalmente, si se quiero evitar modificar el original, debo de hacer una copia del objeto. 
