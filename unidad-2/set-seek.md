@@ -121,3 +121,68 @@ R//** que los objetos en javaScript se pasan por referencia, porque modificarlos
 
 * **¿Para qué sirven los métodos normalize() y limit()?     
   R//** `normalize()` convierte el vector a dirección unitaria (1) y `limit()` restringe la magnitud del vector a un valor máximo sin cambiar la dirección.
+
+
+### Actividad 05
+
+* **El código que genera el resultado que te pedí.
+R//**
+
+```js
+let base;
+let v1, v2;
+let color1, color2;
+
+function setup() {
+  createCanvas(400, 400);
+  base = createVector(width / 2, height / 2);
+
+  // Vectores base
+  v1 = createVector(100, 0);   
+  v2 = createVector(0, 100);   
+
+  color1 = color(255, 0, 0);   
+  color2 = color(0, 0, 255);   
+}
+
+function draw() {
+  background(255);
+
+  let t = (sin(frameCount * 0.02) + 1) / 2;
+
+  let v3 = p5.Vector.lerp(v1, v2, t);
+  let c3 = lerpColor(color1, color2, t);
+
+  stroke(0, 200, 0); 
+  strokeWeight(1.5);
+  let end1 = p5.Vector.add(base, v1);
+  let end2 = p5.Vector.add(base, v2);
+  line(end1.x, end1.y, end2.x, end2.y);
+
+  drawArrow(base, v1, color1); 
+  drawArrow(base, v2, color2); 
+  drawArrow(base, v3, c3);    
+}
+
+function drawArrow(base, vec, myColor) {
+  push();
+  stroke(myColor);
+  strokeWeight(3);
+  fill(myColor);
+  translate(base.x, base.y);
+  line(0, 0, vec.x, vec.y);
+  rotate(vec.heading());
+  let arrowSize = 7;
+  translate(vec.mag() - arrowSize, 0);
+  triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+  pop();
+}
+```
+
+* **¿Cómo funciona lerp() y lerpColor().
+R//** `lerp()` es una forma de saltar de un valor a otro suavemente, controlando cuánto se acerca, en vectores, por ejemplo, funciona como una posición intermedia entre dos vectores, como la línea verde que se dibuja en el ejemplo. 
+
+`lerpColor()` mezcla dos colores en base a un valor amt entre 0 y 1, es lo que sucede con el vector que cambia de color entre azul y rojo. 
+
+* **¿Cómo se dibuja una flecha usando drawArrow()?
+R//** lo que yo hice fue primero, mover el sistema de coordenadas a la base de la flecha con `translate()`, luego con `line(0, 0, vec.x, vec.y)` dibujé la línea desde el origen local, con `rotate(vec.heading())` roté el sistema para que la flecha apunte en la dirección del vector, con `translate(vec.mag() - arrowSize, 0)` moví el origen al final de la línea para dibujar la punta de la flecha, y finalmente usé `triangle()` para dibujar la punta triangular.
