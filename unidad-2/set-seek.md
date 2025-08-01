@@ -199,7 +199,14 @@ R//** `this.position` representa dónde está el objeto en la pantalla. `this.ve
 
 ### Actividad 07
 
-¿Qué observaste cuando usas cada una de las aceleraciones propuestas?
+**¿Qué observaste cuando usas cada una de las aceleraciones propuestas?**
+* **Aceleración constante**
+    > la bolita se movía cada vez más rápido en una dirección fija. Al principio era lento, pero luego aceleraba hasta volverse muy veloz. Comprendí que la aceleración genera un cambio gradual en la velocidad.      
 
+* **Aceleración aleatoria**
+   > La bolita se movia de forma caótica, como si estuviera enloquecida porque cambiaba de dirección todo el tiempo.
+   
+* **Aceleración hacia el mouse**
+   > La bolita seguía al mouse de manera natural, como si el mouse la guiara. La aceleración hacía que su movimiento fuera suave, con una sensación de “inteligencia”.
 
 
