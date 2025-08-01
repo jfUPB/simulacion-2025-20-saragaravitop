@@ -182,7 +182,7 @@ function drawArrow(base, vec, myColor) {
 * **¿Cómo funciona lerp() y lerpColor().     
 R//** `lerp()` es una forma de saltar de un valor a otro suavemente, controlando cuánto se acerca, en vectores, por ejemplo, funciona como una posición intermedia entre dos vectores, como la línea verde que se dibuja en el ejemplo. 
 
-`lerpColor()` mezcla dos colores en base a un valor amt entre 0 y 1, es lo que sucede con el vector que cambia de color entre azul y rojo. 
+     `lerpColor()` mezcla dos colores en base a un valor amt entre 0 y 1, es lo que sucede con el vector que cambia de color entre azul y rojo. 
 
 * **¿Cómo se dibuja una flecha usando drawArrow()?     
 R//** lo que yo hice fue primero, mover el sistema de coordenadas a la base de la flecha con `translate()`, luego con `line(0, 0, vec.x, vec.y)` dibujé la línea desde el origen local, con `rotate(vec.heading())` roté el sistema para que la flecha apunte en la dirección del vector, con `translate(vec.mag() - arrowSize, 0)` moví el origen al final de la línea para dibujar la punta de la flecha, y finalmente usé `triangle()` para dibujar la punta triangular.
@@ -194,7 +194,7 @@ R//** es un concepto que usa dos elementos importantes, posición y velocidad qu
  Geométricamente, se puede interpretar como un objeto que está en un espacio, y cada frame se mueve una cierta cantidad en X e Y, dependiendo de su vector velocidad. Cada vector tiene dirección y magnitud.
 
 * **¿Cómo se aplica motion 101 en el ejemplo?    
-R//** `this.position` representa dónde está el objeto en la pantalla. `this.velocity` representa hacia dónde se está moviendo y a qué velocidad, entonces cada vez que se llama `update()`, el objeto cambia de lugar sumando el vector velocity a position, haciendo que el objeto se mueva en línea recta, y si llega al borde, el método checkEdges() lo hace rebotar (cambiando la dirección de su velocidad).
+R//** `this.position` representa dónde está el objeto en la pantalla. `this.velocity` representa hacia dónde se está moviendo y a qué velocidad, entonces cada vez que se llama `update()`, el objeto cambia de lugar sumando el vector velocity a position, haciendo que el objeto se mueva en línea recta, y si llega al borde, el método `checkEdges()` lo hace rebotar (cambiando la dirección de su velocidad).
 
 
 ### Actividad 07
