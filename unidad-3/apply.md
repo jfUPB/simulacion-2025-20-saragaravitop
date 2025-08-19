@@ -12,7 +12,7 @@ Diseñé una obra inspirada en el problema de los n-cuerpos, representando abeja
 
 * Algoritmos de la Unidad 1 usados:
   * random
-  * perli noise 
+  * perlin noise 
 
 **2. Explica cómo modelaste el problema de los n-cuerpos en tu obra.**
 En la obra cada abeja se considera un "cuerpo" que experimenta fuerzas de atracción hacia las flores (simulando el polen), y de repulsión entre sí (para no chocar). Entonces, cada elemento del sistema influye en el movimiento de los demás, dando como resultado un enjambre dinámico, inspirado también en las esculturas cinéticas de Alexander Calder, ya que la obra nunca se repite igual y depende de la interacción con el espectador.
@@ -112,3 +112,4 @@ class Bee {
 ```
 **5. Captura una imagen representativa de tu ejemplo.**              
 <img width="673" height="411" alt="image" src="https://github.com/user-attachments/assets/c18ba197-ddd3-42cd-8fe6-4b826da40acc" />
+
