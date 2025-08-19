@@ -307,6 +307,104 @@ class Mover {
 **5. Captura una imagen representativa de tu ejemplo.**         
 <img width="669" height="428" alt="image" src="https://github.com/user-attachments/assets/b2043f50-7a99-4bad-812a-682149596f28" />
 
+#### Resistencia al aire y fluidos
+
+**1. Explica cómo modelaste cada fuerza.**        
+la modele con un vector en dirección opuesta a la velocidad del objeto. Su magnitud depende del cuadrado de la velocidad `velocidad^2` y de un coeficiente `c` que controla la intensidad del efecto. Ese coeficiente cambia si el paracaídas está abierto o cerrado, cuando esta cerrado es porque `c` es pequeño (casi no hay fricción), y cuando esta abierto, aunmenta porque la resistencia se hace fuerte y el objeto cae mas lento.
+
+**2. Conceptualmente cómo se relaciona la fuerza con la obra generativa.**       
+La resistencia del aire (o de un líquido) es muy parecida a la fricción, pero ocurre en un medio y su magnitud depende de la velocidad del objeto. en este caso, el objeto es otra pelotica que va en una caida libre, lleva x velocidad, al abrir el paracaidas este actua como un medio que se resiste al aire, logrando que la velocidad de la pelotica disminuya y baje mucho mas lento.
+
+**3. Copia el enlace a tu ejemplo en p5.js.**     
+[actividad 09 unidad 03 resistencia del aire](https://editor.p5js.org/saragaravitop/sketches/2myQpwQKZ)
+
+**4. Copia el código.** 
+```
+let mover;
+let c = 0.01; 
+let parachuteOpen = false;
+
+function setup() {
+  createCanvas(400, 400);
+  mover = new Mover();
+}
+
+function draw() {
+  background(220);
+
+  let gravity = createVector(0, 0.2 * mover.mass);
+  mover.applyForce(gravity);
+
+  let drag = mover.velocity.copy();
+  if (drag.mag() > 0) {
+    drag.normalize();
+    drag.mult(-1);
+    let speedSq = mover.velocity.magSq();
+    drag.mult(c * speedSq);
+    mover.applyForce(drag);
+  }
+
+  mover.update();
+  mover.display();
+  mover.checkEdges();
+
+  fill(0);
+  noStroke();
+  textSize(14);
+  text("para que funcione primero hacer click en la pantalla", 20, 20);
+  text("luego si presionar ESPACIO para abrir el paracaidas", 35, 35);
+}
+
+function keyPressed() {
+  if (key === " ") {
+    parachuteOpen = !parachuteOpen;
+    if (parachuteOpen) {
+      c = 0.3; 
+    } else {
+      c = 0.01; 
+    }
+  }
+}
+
+class Mover {
+  constructor() {
+    this.position = createVector(width / 2, 50);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.mass = 1;
+  }
+
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acceleration.add(f);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  display() {
+    fill(200, 0, 100);
+    ellipse(this.position.x, this.position.y, 32, 32);
+
+    if (parachuteOpen) {
+      fill(150, 100, 200, 180);
+      arc(this.position.x, this.position.y - 20, 80, 40, PI, TWO_PI, CHORD);
+    }
+  }
+
+  checkEdges() {
+    if (this.position.y > height - 16) {
+      this.position.y = height - 16;
+      this.velocity.y = 0;
+    }
+  }
+}
+```
+**5. Captura una imagen representativa de tu ejemplo.**     
+<img width="419" height="418" alt="image" src="https://github.com/user-attachments/assets/a64720e7-85ab-44a7-b5a3-5e5a73817f11" />
 
 
 
