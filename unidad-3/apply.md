@@ -5,17 +5,17 @@
 
 ### Actividad 10
 
-1. Diseña e implementa tu obra generativa interactiva en tiempo real.
+**1. Diseña e implementa tu obra generativa interactiva en tiempo real.**
 Mi obra consiste en un móvil generativo inspirado en Alexander Calder, donde múltiples piezas geométricas se balancean, interactúan entre sí y responden de acuerdo a la interacción del usuario.
 
-* Interactividad: la obra es interactiva en tiempo real, al hacer clic con el mouse en la pantalla, se agregan nuevos pivotes en el lienzo. Estos pivotes funcionan como “ejes” a los que algunas piezas se reasignan con cierta probabilidad, modificando la estructura del móvil y generando nuevas configuraciones visuales.
+* **Interactividad:** la obra es interactiva en tiempo real, al hacer clic con el mouse en la pantalla, se agregan nuevos pivotes en el lienzo. Estos pivotes funcionan como “ejes” a los que algunas piezas se reasignan con cierta probabilidad, modificando la estructura del móvil y generando nuevas configuraciones visuales.
 
-* Algoritmos de la Unidad 1 usados:
+* **Algoritmos de la Unidad 1 usados:**
 Además del uso de random(), incorporé estos algoritmos:
 
-  * Perlin Noise: utilizado para simular el viento suave que balancea continuamente las piezas. A diferencia de la aleatoriedad pura, el Perlin noise produce oscilaciones suaves y continuas que hacen que el movimiento sea más natural y orgánico.
+  * **Perlin Noise:** utilizado para simular el viento suave que balancea continuamente las piezas. A diferencia de la aleatoriedad pura, el Perlin noise produce oscilaciones suaves y continuas que hacen que el movimiento sea más natural y orgánico.
 
-  * Distribuciones de probabilidad ponderadas: para determinar el tipo de figura (círculo, triángulo, rectángulo), su tamaño y su color, empleé una selección basada en pesos. Por ejemplo, los colores primarios tienen mayor probabilidad de aparecer, mientras que los tamaños grandes aparecen con menor frecuencia. Esto me permite controlar la estética general de la obra y acercarme al lenguaje visual de Calder.
+  * **Distribuciones de probabilidad ponderadas:** para determinar el tipo de figura (círculo, triángulo, rectángulo), su tamaño y su color, empleé una selección basada en pesos. Por ejemplo, los colores primarios tienen mayor probabilidad de aparecer, mientras que los tamaños grandes aparecen con menor frecuencia. Esto me permite controlar la estética general de la obra y acercarme al lenguaje visual de Calder.
 
 **2. Explica cómo modelaste el problema de los n-cuerpos en tu obra.**
 El sistema fue modelado como un conjunto de piezas (cuerpos) y pivotes (centros de atracción), porque quería representar el movimiento natural de las abejas que se acercan a las flores de manera instintiva, por así decirlo, de esta forma. 
@@ -24,7 +24,7 @@ El sistema fue modelado como un conjunto de piezas (cuerpos) y pivotes (centros 
 
  * Implemente una fuerza inversamente proporcional al cuadrado de la distancia entre piezas, gracias a esto, las piezas no se amontonan y el móvil conserva una distribución espacial armónica.
 
- * Viento (ruido Perlin): Se añade como una fuerza externa común a todos los cuerpos, logrando un balanceo continuo y dinámico.
+ * **Viento (ruido Perlin):** Se añade como una fuerza externa común a todos los cuerpos, logrando un balanceo continuo y dinámico.
 
 De esta manera, cada pieza está influenciada por su pivote y por las demás piezas, lo que constituye un sistema de n-cuerpos interactuando en tiempo real.
 
@@ -32,7 +32,7 @@ De esta manera, cada pieza está influenciada por su pivote y por las demás pie
   
 [Actividad 10 unidad 03 n-cuerpos](https://editor.p5js.org/saragaravitop/sketches/qR6volO8q)
 
-**4. código.**      
+**4. Código.**      
 
 ```
 let pieces = [];
@@ -256,6 +256,7 @@ function weightedChoice(options) {
 ```
 **5. Captura una imagen representativa de tu ejemplo.**              
 <img width="652" height="473" alt="image" src="https://github.com/user-attachments/assets/adc31bcc-c630-490b-8ddf-9cc15a0b8af0" />
+
 
 
 
