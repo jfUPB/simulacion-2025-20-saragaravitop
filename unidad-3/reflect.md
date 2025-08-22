@@ -40,29 +40,41 @@ En este momento solo se me ocurre, que si tuviera una semana más aprendería me
 
 ### Actividad 12
 
-1. Intercambia la URL de tu bitácora con un compañero.
+Compartí mi obra con Valeria Zuñiga. 
 
-2. Analiza su Actividad 10 (problema de los n-cuerpos). Ejecuta su simulación, lee su concepto y revisa su código.
-   
-3. En tu propia bitácora, escribe una retroalimentación constructiva para tu compañero, evaluando:
-    * Claridad del Concepto: ¿La obra visual refleja la inspiración en las esculturas cinéticas de Calder y el problema de los n-cuerpos
-    * Implementación de Fuerzas: ¿Se aplican correctamente las leyes de Newton? ¿Las fuerzas se acumulan apropiadamente?
-    * Creatividad en el Modelado: ¿El modelado de fuerzas es interesante y genera comportamientos únicos?
-    * Calidad de la Interactividad: ¿La interacción permite explorar diferentes aspectos del sistema de fuerzas?
+**1. En tu propia bitácora, escribe una retroalimentación constructiva para tu compañero, evaluando:**      
+
+ * Claridad del Concepto: ¿La obra visual refleja la inspiración en las esculturas cinéticas de Calder y el problema de los n-cuerpos?
+    > me parece que conceptualmente lo logra, como en el balanceo en un espacio dinámico y hace buen uso del problema de los n-cuerpos, solo diría que visualmente le falta un poco, en cuanto a los colores y formas.
+*  Implementación de Fuerzas: ¿Se aplican correctamente las leyes de Newton? ¿Las fuerzas se acumulan apropiadamente?
+     > Sí, se nota el uso correcto de las leyes de Newton porque la fuerza se calcula a partir de la distancia, se limita para evitar explosiones, y luego se convierte en aceleración que se acumula hasta actualizar la velocidad y posición.
+* Creatividad en el Modelado: ¿El modelado de fuerzas es interesante y genera comportamientos únicos?
+   > Sí, me parece interesante porque también integro Perlin noise para simular viento y vi que usó Lévy flight para los pasos largos aleatorios, haciendo que no se vea mecánico, por ende siempre es un movimiento diferente. 
+* Calidad de la Interactividad: ¿La interacción permite explorar diferentes aspectos del sistema de fuerzas?
+     > Pues la interacción es normal, con cada nuevo clic se agrega partículas, pero lo interesante es que también cambia el movimiento del sistema completo.
+     
+2. Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
+  * ¿Qué fue lo que más te llamó la atención del trabajo de tu compañero?
+      > Le dije a Val que lo que más me gustó de su trabajo fue la implementación de sus algoritmos de la unidad 1, porque compartimos lo del perlín noise y que ella penso una manera interesante de usar el Levy Flight porque a mi no se me ocurrió. 
+  * ¿Qué aprendiste de su enfoque para modelar fuerzas?
+      > Le dije a Val que la combinación de ruido y aleatoriedad en su obra fue creativo e inesperado. 
+  * ¿Qué técnica o idea de su implementación te gustaría aplicar en tus futuros proyectos?
+      > la idea del Lévy flight, como lo he dicho, porque da un balance entre movimientos pequeños y saltos inesperados, haciendo que los sistemas se sientan más vivos.
       
-4. Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
-    * ¿Qué fue lo que más te llamó la atención del trabajo de tu compañero?
-    * ¿Qué aprendiste de su enfoque para modelar fuerzas?
-    * ¿Qué técnica o idea de su implementación te gustaría aplicar en tus futuros proyectos?
 
 ### Actividad 13
 
-1. Continuar: ¿Qué actividad o concepto de esta unidad te resultó más “revelador” para entender las fuerzas en el arte generativo?
+**1. Continuar: ¿Qué actividad o concepto de esta unidad te resultó más “revelador” para entender las fuerzas en el arte generativo?**    
+Todos los conceptos de esta unidad me gustaron mucho, la física me parece un tema muy interesamte y mas en este tema de la creación de arte generativo porque a mi me gusta mucho crear pero no me gusta casi programar, aún asi me he divertido haciendo ambas cosas. 
    
-2. Dejar de hacer: ¿Hubo alguna actividad que te pareció redundante o menos efectiva para comprender el modelado de fuerzas?
-   
-3. Progresión conceptual: ¿El paso de manipular aceleración directamente (unidad 2) a modelar fuerzas (unidad 3) te pareció una progresión natural y efectiva? ¿Por qué?
-   
-4.Conexión arte-física: ¿Cómo te ha ayudado esta unidad a ver la conexión entre conceptos físicos y expresión artística? ¿Te sientes más cómodo “jugando” con las leyes de la física en tus creaciones?
+**2. Dejar de hacer: ¿Hubo alguna actividad que te pareció redundante o menos efectiva para comprender el modelado de fuerzas?**      
+yo creo que todas para mi fueron muy divertidas de realizar porque me permitieron entender tanto el concepto como la aplicación. 
 
-5. Comentario adicional: ¿Algo más que quieras compartir sobre tu experiencia explorando fuerzas en el arte generativo?
+**3. Progresión conceptual: ¿El paso de manipular aceleración directamente (unidad 2) a modelar fuerzas (unidad 3) te pareció una progresión natural y efectiva? ¿Por qué?**     
+Sí me parecio natural y efectiva porque primero es necesario entender la cinemática antes de la dinámica de los cuerpos. 
+   
+**4.Conexión arte-física: ¿Cómo te ha ayudado esta unidad a ver la conexión entre conceptos físicos y expresión artística? ¿Te sientes más cómodo “jugando” con las leyes de la física en tus creaciones?**      
+Se podría decir, creo que nunca hubiera pensando que podría jugar con las leyes de la física. 
+
+**5. Comentario adicional: ¿Algo más que quieras compartir sobre tu experiencia explorando fuerzas en el arte generativo?**    
+Fue una buena forma de ver los conceptos de física, como ya lo había mencionado antes. 
