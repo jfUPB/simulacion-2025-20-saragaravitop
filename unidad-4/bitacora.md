@@ -3,23 +3,20 @@
 ## Explicación conceptual de la obra
 
 * ¿Qué concepto de la unidad 4 y cómo lo aplicaste en la obra?
-> Tu respuesta aquí:
-> Usé el concepto de ondas, especificamente las que tienen la función sinusoide. Este movimiento es aplicado a las estrellas que se mueven en el eje y de esta manera. 
+> Usé el concepto de ondas, especificamente las que tienen la función sinusoide. Este movimiento es aplicado a las estrellas que se mueven en el eje Y, y de su brillo intermitente, además, usé esta misma función para crear un degradado de color en las estrellas mientras se mueven a lo largo de su trayectoria de onda, mezclando dos colores de manera suave.
 
 * ¿Qué concepto de la unidad 3 y cómo lo aplicaste en la obra?
-> Tu respuesta aquí:
-> Usé el concepto de la fuerza gravitacional junto con los n-bodies. 
+> Usé el concepto de la fuerza gravitacional junto con los n-bodies aplicado en las estrellas fugaces, entonces cada que aparece x cantidad de estrellas se simula la fuerza de atracción, conforme las estrellas estan mas cerca se convierte en aceleración para cambiar la trayectoria de las estrellas, lo que hace que se curven y se acerquen entre sí en lugar de moverse en línea recta. 
 
 * ¿Qué concepto de la unidad 2 y cómo lo aplicaste en la obra?
-> Tu respuesta aquí:
-> Usé el motion 101 para darle a los objetos una velocidad, posición y adicional una aceleración. 
+> Usé el Motion 101, para que los objetos se muevan porque su velocidad afecta su posición, y una aceleración (que representa una fuerza) cambia su velocidad. Agregué un bucle continuo que actualiza estos valores, creando el movimiento. 
 
 * ¿Qué concepto de la unidad 1 y cómo lo aplicaste en la obra?
-> Tu respuesta aquí:
+> Usé la aleatoriedad para que el movimiento de los objetos fuera diferente, marqué una posición y velocidad inicial de los objetos completamente al azar. Gracias al desplazamiento aleatorio, las estrellas parpadean y se mueven de forma ondulada (unidad 4). 
+
 > Use la aleatoriedad con probabilidades para el movimiento de las ondas. 
 
 ## ¿Cómo resolviste la interacción?
-> Tu respuesta aquí:
 > La interacción es dada por el mouse. Cuando se acerca el mouse a la pantalla, las estrellas siguen el movimiento de este solo cuando esta en el lienzo, y adicionalmente, cada que se hace click se agrega una estrella fugaz. 
 
 ## Enlace a la obra en el editor de p5.js
@@ -41,13 +38,24 @@ function setup() {
     objetos.push(new Espacial("estrella"));
   }
   // Crear planetas
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     objetos.push(new Espacial("planeta"));
   }
 }
 
 function draw() {
   background(10); // Fondo negro fijo
+
+  // Aplica la fuerza gravitacional solo entre las estrellas fugaces
+  let fugaces = objetos.filter(o => o.tipo === "fugaz");
+  for (let i = 0; i < fugaces.length; i++) {
+    for (let j = 0; j < fugaces.length; j++) {
+      if (i !== j) {
+        let force = fugaces[j].attract(fugaces[i]);
+        fugaces[i].applyForce(force);
+      }
+    }
+  }
 
   for (let o of objetos) {
     if (o.tipo === "estrella") {
@@ -79,8 +87,13 @@ class Espacial {
     this.vel = p5.Vector.random2D().mult(random(0.5, 2));
     this.acc = createVector(0, 0);
     this.size = (this.tipo === "planeta") ? random(20, 50) : 8;
-    this.lifetime = (this.tipo === "fugaz") ? 200 : Infinity;
-    this.topspeed = 4;
+    this.lifetime = (this.tipo === "fugaz") ? 400 : Infinity;
+    this.topspeed = 6;
+    
+    // Masa proporcional al tamaño. Las fugaces tienen una masa pequeña para no afectar tanto.
+    this.mass = (this.tipo === "fugaz") ? this.size * 0.8 : this.size; 
+
+
 
     // offsets para personalizar cada estrella
     this.phaseOffset = random(TWO_PI);
@@ -98,13 +111,34 @@ class Espacial {
       this.trail = [];
     }
   }
+  
+  // Método para aplicar una fuerza
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acc.add(f);
+  }
+
+  // Método para calcular la fuerza de atracción
+  attract(other) {
+    let G = 0.8; // Constante gravitacional (ajustada para un efecto más visible en las fugaces)
+    let force = p5.Vector.sub(this.pos, other.pos);
+    let distance = force.mag();
+    distance = constrain(distance, 5, 25);
+    let strength = (G * this.mass * other.mass) / (distance * distance);
+    force.setMag(strength);
+    return force;
+  }
+
 
   update() {
+    
+    this.vel.add(this.acc);
+    this.vel.limit(this.topspeed);
     if (this.tipo === "estrella") {
       this.vel.add(this.acc);
       this.vel.limit(this.topspeed);
 
-      let wave = sin(frameCount * 0.05 + this.phaseOffset) * 0.5;
+      let wave = sin(frameCount * 0.05 + this.phaseOffset) * 10;
       this.pos.add(this.vel.x, this.vel.y + wave);
     } else {
       this.vel.add(this.acc);
@@ -184,6 +218,8 @@ function star(x, y, radius1, radius2, npoints) {
 ```
 
 ## Captura de pantalla representativa
+
+<img width="728" height="366" alt="image" src="https://github.com/user-attachments/assets/e938a2e4-4fb3-4132-8018-d1707d5fc34f" />
 
 
 
