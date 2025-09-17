@@ -144,7 +144,7 @@ function hexagon(x, y, radius) {
     * unidad 2: aceleración aleatoria
     * unidad 5: múltiples sistemas
   
-**2. como gestione la creación y desaparición de particulas****
+**2. como gestione la creación y desaparición de particulas**
 La creación se hace con emisores que llaman a addParticles(), y lleva un conteo con un tope para dejar de emitir a tiempo. La desaparición se hace con lifespan y splice para eliminarlas del array. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
@@ -157,7 +157,7 @@ La creación se hace con emisores que llaman a addParticles(), y lleva un conteo
 **5. Código**
 
 particle.js
-```
+```js
 class Particle {
   constructor(x, y, randAccelMag = 0.09) {
     this.pos = createVector(x, y);
@@ -260,15 +260,15 @@ class ParticleSystem {
 ```
 sketch.js 
 
-```
+```js
 let systems = [];
 
 // Ajustes por defecto para nuevos sistemas (puedes cambiarlos con teclas)
 let defaults = {
-  perlinMove: true,     // Unidad 1: origen con ruido Perlin
-  randAccelMag: 0.09,   // Unidad 2: aceleración aleatoria por partícula
-  emissionRate: 3,      // cuántas partículas por frame
-  maxBirths: 300        // límite de nacimientos por sistema
+  perlinMove: true,     
+  randAccelMag: 0.09,   
+  emissionRate: 3,     
+  maxBirths: 300        
 };
 
 function setup() {
@@ -330,6 +330,295 @@ function keyPressed() {
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > la creación de partículas en este ejemplo funciona en que en cada frame se añade una nueva particula al sistema, que puede ser de cualquier subclase. Cada particula tiene el metodo isDead que es el que indica cuando ya esten muertas y se usa splice para eliminarlas. Esto se logra de manera mas rapida y eficiente por el uso de herencia y polimorfismo.
 
+**Experimento**           
+
+**1. Conceptos usados**             
+   * unidad 1: distribución normal
+   * unidad 2: aceleración personalizada
+   * unidad 4: funciones sinusoudes, coordenadas polares
+   * unidad 5: sistema extensible 
+
+**2. como gestione la creación y desaparición de particulas**
+con un sistema que crea las particulas, las cuales solo se forman si hay espacio, es decir, si no ha llegado al maximo, y si se lleno se pausa la producción. Las particulas mueren con el lifespan que va bajando hasta llegar a 0, y cuando tambien se llena, se van eliminando. 
+
+**3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+   * unidad 1: distribución normal. La use para la variabilidad en el angulo de la velocidad inicial, con randomGaussian(), y mostrar las medias. 
+   * unidad 2: aceleración personalizada. lo hice para separar el comportamiento global de la particula, asi se mantiene el polimorfismo. 
+   * unidad 4: funciones sinusoudes, coordenadas polares. esta la usé para aportar variedad de forma visual para no romper el sistema. 
+   * unidad 5: sistema extensible. para lo mismo que explique arriba. 
+
+**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/vlxOahLqy)**
+
+**5. Código**
+particle.js
+```js
+// particle.js
+// Base + subclases (polimorfismo) y sistema extensible con registro
+// Incluye: flores a color (solo visual), maxBirths por sistema, y gating canEmit.
+
+class Particle {
+  constructor(x, y, opts = {}) {
+    this.pos = createVector(x, y);
+    const meanDir = -HALF_PI;                         // apuntando hacia arriba
+    const ang = randomGaussian(meanDir, PI / 10);     // desviación angular
+    const mag = max(0.1, randomGaussian(2.0, 0.6));   // magnitud con gaussiana
+    this.vel = p5.Vector.fromAngle(ang).mult(mag);
+    this.acc = createVector(0, 0)
+    this.size = constrain(randomGaussian(9, 3), 3, 22);
+    this.lifespan = constrain(randomGaussian(255, 40), 120, 320);
+    this.phase = random(TWO_PI);
+    this.customAccel = opts.customAccel || null;
+    this.hue = random([330, 300, 260, 200, 140, 40]); // tonos florales (HSB)
+    this.petalCount = floor(random(6, 10));           // nº de pétalos
+    this.spin = random(-0.02, 0.02);                  // giro sutil
+  }
+
+  applyForce(f) { this.acc.add(f); }
+
+  update() {
+    // aceleración personalizada por frame
+    if (this.customAccel) {
+      const a = this.customAccel(this);
+      if (a) this.applyForce(a);
+    }
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.vel.mult(0.995);
+    this.lifespan -= 2.2;
+  }
+  display() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    const base = this.size;
+    const petalLen = base * 1.6;     // largo del pétalo
+    const petalWid = base * 0.8;     // ancho del pétalo
+    const rot = this.phase + frameCount * this.spin;
+    noStroke();
+    for (let i = 0; i < this.petalCount; i++) {
+      const a = rot + (TWO_PI * i) / this.petalCount;
+      push();
+      rotate(a);
+      const h = (this.hue + i * (12 / this.petalCount)) % 360; // leve variación
+      fill(h, 70, 95, this.lifespan); // HSB global (definido en setup)
+      ellipse(base * 0.6, 0, petalLen, petalWid);
+      pop();
+    }
+    fill((this.hue + 20) % 360, 40, 60, this.lifespan);
+    circle(0, 0, base * 0.9);
+    pop();
+  }
+
+  run() { this.update(); this.display(); }
+  isDead() { return this.lifespan <= 0; }
+}
+
+class SineParticle extends Particle {
+  constructor(x, y, opts = {}) {
+    super(x, y, opts);
+    this.sinAmp = opts.sinAmp ?? 0.06;    // amplitud de a_senoidal
+    this.sinFreq = opts.sinFreq ?? 0.12;  // frecuencia (rad/frame)
+  }
+  update() {
+    // aceleración lateral senoidal (perpendicular a la vel actual)
+    const dir = this.vel.copy();
+    if (dir.magSq() > 0) {
+      dir.normalize();
+      const perp = createVector(-dir.y, dir.x);
+      const a = this.sinAmp * sin(this.phase + frameCount * this.sinFreq);
+      this.applyForce(perp.mult(a));
+    }
+    super.update();
+  }
+  display() {
+    // brillo pulsa con seno (ajustado a HSB global)
+    const pulse = map(sin(this.phase + frameCount * 0.1), -1, 1, 0.6, 1.0);
+    const b = map(pulse, 0.6, 1.0, 80, 100);
+    noStroke();
+    fill(220, 30, b, this.lifespan); // azul suave en HSB
+    circle(this.pos.x, this.pos.y, this.size);
+  }
+}
+class PolarParticle extends Particle {
+  constructor(x, y, opts = {}) {
+    super(x, y, opts);
+    this.anchor = createVector(x, y);
+    this.theta = random(TWO_PI);
+    this.r = random(2, 8);
+    // velocidades polares con distribución normal
+    this.omega = randomGaussian(0.04, 0.015);  // dθ/dt
+    this.rVel = randomGaussian(0.15, 0.05);    // dr/dt
+  }
+  update() {
+    // dinámica polar con modulación senoidal en el radio
+    this.theta += this.omega;
+    this.r += this.rVel + 0.35 * sin(this.phase + frameCount * 0.05);
+const x = this.anchor.x + this.r * cos(this.theta);
+    const y = this.anchor.y + this.r * sin(this.theta);
+    // aproxima vel para compatibilidad con display base
+    this.vel.set(x - this.pos.x, y - this.pos.y);
+    this.pos.set(x, y);
+    this.lifespan -= 2.0;
+  }
+  display() {
+    noStroke();
+    fill(0, 0, 80, this.lifespan); // gris en HSB
+    circle(this.pos.x, this.pos.y, this.size);
+  }
+}
+class ParticleSystem {
+  constructor(x, y, options = {}) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+    this.registry = [
+      { cls: Particle,      weight: 1 },
+      { cls: SineParticle,  weight: 1 },
+      { cls: PolarParticle, weight: 1 }
+   }
+    this.emissionRate = options.emissionRate ?? 4;
+    this.maxBirths = options.maxBirths ?? 350; // ← tope local por sistema
+    this.births = 0;
+    this.accelMode = options.accelMode ?? 'none';
+    this.canEmit = true;
+  }
+
+  // API pública para extender tipos en caliente
+  register(cls, weight = 1) {
+    this.registry.push({ cls, weight: max(0, weight) });
+  }
+
+  // selector ponderado
+  pickClass() {
+    const total = this.registry.reduce((s, r) => s + r.weight, 0);
+    let t = random(total);
+    for (const r of this.registry) {
+      if ((t -= r.weight) < 0) return r.cls;
+    }
+    return Particle;
+  }
+
+  // aceleración personalizada por modo (mantiene referencias léxicas)
+  customAccel = (p) => {
+    switch (this.accelMode) {
+      case 'gravity':
+        return createVector(0, 0.08);
+      case 'swirl': {
+        const c = createVector(width / 2, height / 2);
+        const toC = p5.Vector.sub(c, p.pos);
+        if (toC.magSq() === 0) return createVector(0, 0);
+        const perp = createVector(-toC.y, toC.x).normalize().mult(0.03);
+        return perp;
+      }
+      case 'mouse': {
+        const m = createVector(mouseX, mouseY);
+        return p5.Vector.sub(m, p.pos).setMag(0.05);
+      }
+      default:
+        return createVector(0, 0);
+    }
+  }
+
+  addParticles() {
+    if (!this.canEmit || this.births >= this.maxBirths) return; // ← gating global + tope local
+    for (let i = 0; i < this.emissionRate; i++) {
+      const K = this.pickClass();
+      this.particles.push(new K(this.origin.x, this.origin.y, {
+        customAccel: this.customAccel
+      }));
+      this.births++;
+      if (this.births >= this.maxBirths) break;
+    }
+  }
+
+  run() {
+    this.addParticles();
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i];
+      p.run();
+      if (p.isDead()) this.particles.splice(i, 1);
+    }
+    push();
+    noFill();
+    stroke(0, 0, 100, 100); // blanco en HSB con alfa
+    circle(this.origin.x, this.origin.y, 10);
+    pop();
+  }
+
+  isDead() {
+    return this.births >= this.maxBirths && this.particles.length === 0;
+  }
+}
+```
+sketch.js
+```js
+let systems = [];
+let defaults = {
+  emissionRate: 5,
+  accelMode: 'none' // 'none' | 'gravity' | 'swirl' | 'mouse'
+};
+
+// ← Presupuesto global de partículas vivas
+const PARTICLE_BUDGET = 3500;
+
+function setup() {
+  createCanvas(720, 480);
+  textFont('monospace', 12);
+
+  // Mover colorMode global aquí (antes estaba por partícula)
+  colorMode(HSB, 360, 100, 100, 255);
+
+  // sistema inicial
+  systems.push(new ParticleSystem(width / 2, height * 0.75, {
+    emissionRate: defaults.emissionRate,
+    accelMode: defaults.accelMode
+  }));
+}
+
+function draw() {
+  background(14);
+
+  // 1) Contar partículas vivas globalmente
+  let live = 0;
+  for (const s of systems) live += s.particles.length;
+  const canEmit = live < PARTICLE_BUDGET;
+
+  // 2) Ejecutar sistemas con gating de emisión
+  for (const s of systems) {
+    s.canEmit = canEmit; // pausa emisión si superamos el presupuesto
+    s.emissionRate = defaults.emissionRate;
+    s.accelMode = defaults.accelMode;
+    s.run();
+  }
+
+  // HUD (dibujar encima)
+  noStroke();
+  fill(0, 0, 100); // blanco en HSB
+  text(`sistemas: ${systems.length} | emisión: ${defaults.emissionRate}/frame | accel: ${defaults.accelMode}`, 12, 20);
+  text(`vivas: ${live} / ${PARTICLE_BUDGET} | [click] nuevo sistema | [1] none [2] gravity [3] swirl [4] mouse | [E/D] +/- emisión`, 12, 40);
+}
+
+function mousePressed() {
+  systems.push(new ParticleSystem(mouseX, mouseY, {
+    emissionRate: defaults.emissionRate,
+    accelMode: defaults.accelMode
+  }));
+}
+
+function keyPressed() {
+  const k = key.toLowerCase();
+  if (k === 'e') defaults.emissionRate = min(defaults.emissionRate + 1, 20);
+  if (k === 'd') defaults.emissionRate = max(defaults.emissionRate - 1, 1);
+
+  if (key === '1') defaults.accelMode = 'none';
+  if (key === '2') defaults.accelMode = 'gravity';
+  if (key === '3') defaults.accelMode = 'swirl';
+  if (key === '4') defaults.accelMode = 'mouse';
+}
+```
+
+**6. Captura** 
+<img width="610" height="435" alt="image" src="https://github.com/user-attachments/assets/64f3d304-4d54-4892-9025-786ac8161099" />
+
 #### 4. ejemplo 4.6 a particle system with forces.
 
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
@@ -340,6 +629,7 @@ function keyPressed() {
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > para la creación de partículas tambien se usa un emisor, con posición, velocidad aceleración y con el lifespan, que se agregan al array interno del sistema. En este caso, se agregan fuerzas y un repeller, que modifican la aceleración de cada particula, lo que afecta la trayectoria.
 > El lifespan va disminuyendo en cada frame, hasta que llega a 0 y la particula se considera muerta, ya el sistema recorre el array y elimina las que ya no están activas. 
+
 
 
 
