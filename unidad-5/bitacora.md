@@ -8,12 +8,128 @@
 > La creación de las particulas se da en draw(), se crea una nueva instancia de la clase Particle. En el origin es donde nacen las particulas (como un punto fijo). Cada particula tiene su posición, velocidad, aceleración y una vida util (para que si aparezcan y desaparezcan). Y el array es el contenedor donde se guarda toda esta información.
 > Las particulas desaparecen con el lifespan, cuando ese valor llega a 0, o menos se mueren las particulas. En el arreglo, si isDead es true, la particula ya no tiene vida útil (para asi mantener el bucle sin que se rompa), y splice, la elimina de la memoria.
 
-experimento
-1. conceptos usados:
+**Experimento**
+**1. conceptos usados:**
     * unidad 1: distribución de probabilidad
     * unidad 2: motion 101
     * unidad 5: sistema de partículas básico 
 
+**2. como gestione la creación y desaparición de particulas**
+creé una nueva instancia de BeeParticle en el centro del lienzo (es el panal). Y la desaparición la hice con el lifespan y el splice, que eliminan a las particulas dentro del array bees.
+
+**3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+   * unidad 1: distribución de probabilidad. Usé random() para asignar las velocidades iniciales y los colores de cada abeja. Lo usé para poder simular trayectorias mas naturales y que se viera aleatorio. 
+    * unidad 2: motion 101. Lo usé para asignarle a cada abeja una posición, velocidad y aceleración para moder modelar este movimiento físico realista. 
+    * unidad 5: sistema de partículas básico. Implementé un array para la creación y desapación de las abejitas.
+
+**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/E2QRkb0iH)**   
+
+**5. Código**
+
+```js
+let bees = [];
+
+function setup() {
+  createCanvas(600, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(255, 240, 200); // Color cálido tipo panal
+
+  // Dibujar el panal (punto de origen)
+  fill(255, 204, 0);
+  stroke(180, 140, 0);
+  strokeWeight(2);
+  hexagon(width / 2, height / 2, 20);
+
+  // Crear una nueva abeja cada frame
+  bees.push(new BeeParticle(createVector(width / 2, height / 2)));
+
+  // Actualizar y eliminar abejas muertas
+  for (let i = bees.length - 1; i >= 0; i--) {
+    bees[i].run();
+    if (bees[i].isDead()) {
+      bees.splice(i, 1);
+    }
+  }
+}
+
+// Clase base con movimiento y vida útil
+class ParticleBase {
+  constructor(position) {
+    this.position = position.copy();
+    this.velocity = createVector(random(-1, 1), random(-2, -0.5));
+    this.acceleration = createVector(0, 0.05);
+    this.lifespan = 255;
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+    this.lifespan -= 2;
+  }
+
+  isDead() {
+    return this.lifespan < 0;
+  }
+
+  run() {
+    this.update();
+    this.display();
+  }
+}
+
+class BeeParticle extends ParticleBase {
+  constructor(position) {
+    super(position);
+    this.phase = random(360);
+    this.size = random(6, 10);
+    this.bodyColor = color(random(220, 255), random(180, 200), 0); /
+    this.stripeColor = color(50); // Negro
+  }
+
+  update() {
+    super.update();
+    let oscillation = sin(this.phase + frameCount * 4) * 1.5;
+    this.position.x += oscillation;
+  }
+
+  display() {
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(sin(this.phase + frameCount * 4) * 5); // Zumbido leve
+    noStroke();
+    fill(this.bodyColor);
+    hexagon(0, 0, this.size);
+    stroke(this.stripeColor);
+    strokeWeight(1);
+    line(-this.size / 2, 0, this.size / 2, 0);
+    line(-this.size / 3, -this.size / 3, this.size / 3, -this.size / 3);
+    line(-this.size / 3, this.size / 3, this.size / 3, this.size / 3);
+
+   pop();
+  }
+}
+
+function hexagon(x, y, radius) {
+  beginShape();
+  for (let a = 0; a < 360; a += 60) {
+    let sx = x + cos(a) * radius;
+    let sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
+```
+**6. Captura**
+
+<img width="546" height="369" alt="image" src="https://github.com/user-attachments/assets/30a61e4e-9cba-464f-a1e9-9d78232f0515" />
 
 #### 2. ejemplo 4.4 a system of systems
 
@@ -36,4 +152,5 @@ experimento
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > para la creación de partículas tambien se usa un emisor, con posición, velocidad aceleración y con el lifespan, que se agregan al array interno del sistema. En este caso, se agregan fuerzas y un repeller, que modifican la aceleración de cada particula, lo que afecta la trayectoria.
 > El lifespan va disminuyendo en cada frame, hasta que llega a 0 y la particula se considera muerta, ya el sistema recorre el array y elimina las que ya no están activas. 
+
 
