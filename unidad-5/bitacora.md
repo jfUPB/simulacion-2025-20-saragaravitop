@@ -10,11 +10,13 @@
 
 **Experimento**
 **1. conceptos usados:**
-    * unidad 1: distribución de probabilidad
-    * unidad 2: motion 101
-    * unidad 5: sistema de partículas básico 
 
-**2. como gestione la creación y desaparición de particulas**
+   * unidad 1: distribución de probabilidad
+   * unidad 2: motion 101
+   * unidad 5: sistema de partículas básico 
+
+**2. como gestione la creación y desaparición de particulas**     
+
 creé una nueva instancia de BeeParticle en el centro del lienzo (es el panal). Y la desaparición la hice con el lifespan y el splice, que eliminan a las particulas dentro del array bees.
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
@@ -139,12 +141,15 @@ function hexagon(x, y, radius) {
 
 
 **Experimento**
+
 **1. conceptos usados:**
-    * unidad 1: ruido perlín
-    * unidad 2: aceleración aleatoria
-    * unidad 5: múltiples sistemas
+
+   * unidad 1: ruido perlín
+   * unidad 2: aceleración aleatoria
+   * unidad 5: múltiples sistemas
   
 **2. como gestione la creación y desaparición de particulas**
+
 La creación se hace con emisores que llaman a addParticles(), y lleva un conteo con un tope para dejar de emitir a tiempo. La desaparición se hace con lifespan y splice para eliminarlas del array. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
@@ -323,6 +328,7 @@ function keyPressed() {
 }
 ```
 **6. Captura**
+
 <img width="611" height="436" alt="image" src="https://github.com/user-attachments/assets/4e5193ab-4637-41aa-aeba-283edeeb4a3a" />
 
 #### 3. ejemplo 4.5: a Particle System with Inheritance and Polymorphism.
@@ -332,13 +338,15 @@ function keyPressed() {
 
 **Experimento**           
 
-**1. Conceptos usados**             
+**1. Conceptos usados**  
+
    * unidad 1: distribución normal
    * unidad 2: aceleración personalizada
    * unidad 4: funciones sinusoudes, coordenadas polares
    * unidad 5: sistema extensible 
 
 **2. como gestione la creación y desaparición de particulas**
+
 con un sistema que crea las particulas, las cuales solo se forman si hay espacio, es decir, si no ha llegado al maximo, y si se lleno se pausa la producción. Las particulas mueren con el lifespan que va bajando hasta llegar a 0, y cuando tambien se llena, se van eliminando. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
@@ -617,6 +625,7 @@ function keyPressed() {
 ```
 
 **6. Captura** 
+
 <img width="610" height="435" alt="image" src="https://github.com/user-attachments/assets/64f3d304-4d54-4892-9025-786ac8161099" />
 
 #### 4. ejemplo 4.6 a particle system with forces.
@@ -627,13 +636,16 @@ function keyPressed() {
 **Experimento **
 
 **1. Conceptos usados**
+
 * unidad 1: caminatas aleatorias
 * unidad 2: aceleración constante
 * unidad 3: modelar fuerzas/leyes de newton 
 * unidad 5: sistema físico
 
 **2. como gestione la creación y desaparición de particulas**
+
 la generación y creación de particulas se hace tal cual como en la original, lo unico que hice fue agregar los momentos en que ciertas fuerzas afectan ciertas particulas, el efecto solo se ve en el siguiente sistema que se cree. 
+
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
 * unidad 1: caminatas aleatorias. Usé random(), para crear un generador e incluir la aceleración aleatoria para aplicarla a cada partícula. 
 * unidad 2: aceleración constante. Se agregaban fuerzan equivalentes a la aceleración, como el viento o la gravedad, para darle mas dinamismo a la obra.
@@ -875,6 +887,8 @@ function onOff(b) { return b ? 'ON' : 'off'; }
 
 **6. Captura**
 
+<img width="645" height="432" alt="image" src="https://github.com/user-attachments/assets/c566c695-8df4-44f6-b9b9-a19e0cb7cc7b" />
+
 
 #### 5. ejemplo 4.7: a particle system with a repeller.
 
@@ -895,5 +909,6 @@ Experimento
 **5. Código**
 
 **6. Captura**
+
 
 
