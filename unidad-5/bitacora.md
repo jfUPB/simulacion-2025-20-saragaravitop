@@ -624,12 +624,276 @@ function keyPressed() {
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > en este ejemplo tambien usan emisores para la creación de particulas, el emisor les da una posición fija. a las particulas se les puede aplicar una fuerza antes de actualizar su movimiento. Nuevamente se usa el lifespan, pero en esta ocasión va disminuyendo con el tiempo y cuando finalmente llega a 0, se eliminan las particulas usando el splice.
 
+**Experimento **
+
+**1. Conceptos usados**
+* unidad 1: caminatas aleatorias
+* unidad 2: aceleración constante
+* unidad 3: modelar fuerzas/leyes de newton 
+* unidad 5: sistema físico
+
+**2. como gestione la creación y desaparición de particulas**
+la generación y creación de particulas se hace tal cual como en la original, lo unico que hice fue agregar los momentos en que ciertas fuerzas afectan ciertas particulas, el efecto solo se ve en el siguiente sistema que se cree. 
+**3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+* unidad 1: caminatas aleatorias. Usé random(), para crear un generador e incluir la aceleración aleatoria para aplicarla a cada partícula. 
+* unidad 2: aceleración constante. Se agregaban fuerzan equivalentes a la aceleración, como el viento o la gravedad, para darle mas dinamismo a la obra.
+* unidad 3: modelar fuerzas/leyes de newton. Lo que hice con esto fue generar mas control en los movimientos de las particulas al generar un atractor 
+* unidad 5: sistema físico. Todos los conceptos que use arriba fue para generar mas sentido y coherencia con este sistema de particulas, porque entonces podia aplicar diferentes fuerzas en distintos momentos, como si fuera un switch. 
+
+**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/Fl5HZMwoY)
+
+**5. Código**
+
+particle.js
+```js
+class Particle {
+  constructor(x, y, opts = {}) {
+    this.pos = createVector(x, y);
+    this.mass = constrain(randomGaussian(1.0, 0.25), 0.4, 2.0);
+    const ang = random(-PI/6, PI/6) - HALF_PI; // mayormente hacia arriba
+    const mag = constrain(randomGaussian(2.0, 0.6), 0.2, 4.0);
+    this.vel = p5.Vector.fromAngle(ang).mult(mag);
+    this.acc = createVector(0, 0);
+    this.size = map(this.mass, 0.4, 2.0, 5, 12);
+    this.lifespan = 255;
+  }
+  applyForce(F) {
+    const a = p5.Vector.div(F, this.mass);
+    this.acc.add(a);
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.vel.mult(0.995); // leve amortiguación numérica
+    this.lifespan -= 2.2;
+  }
+
+  display() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    noStroke();
+    // color por masa (solo visual)
+    fill(map(this.mass, 0.4, 2.0, 220, 30), 70, 95, this.lifespan);
+    circle(0, 0, this.size);
+    pop();
+  }
+
+  run() { this.update(); this.display(); }
+  isDead() { return this.lifespan <= 0; }
+}
+class ConstantAccel {
+  constructor(ax, ay) {
+    this.a = createVector(ax, ay);
+  }
+  applyTo(p) {
+    // F = m·a  (para que la aceleración resultante sea igual en todas las masas)
+    const F = p5.Vector.mult(this.a, p.mass);
+    p.applyForce(F);
+  }
+}
+
+// U3: Arrastre (aire/agua) cuadrático: Fd = -k * |v|^2 * v̂
+class Drag {
+  constructor(k = 0.02) { this.k = k; }
+  applyTo(p) {
+    const v = p.vel.copy();
+    const speed = v.mag();
+    if (speed === 0) return;
+    const dragMag = this.k * speed * speed;
+    const Fd = v.copy().mult(-1).normalize().mult(dragMag);
+    p.applyForce(Fd);
+  }
+}
+
+// U3: Atractor puntual con ley inversa al cuadrado (suavizada con min/max)
+class Attractor {
+  constructor(centerVecRef, G = 20, minR = 10, maxR = 300) {
+    // centerVecRef: referencia a un p5.Vector externo que puede moverse
+    this.centerRef = centerVecRef;
+    this.G = G; this.minR = minR; this.maxR = maxR;
+  }
+  applyTo(p) {
+    const dir = p5.Vector.sub(this.centerRef, p.pos);
+    const d2 = constrain(dir.magSq(), this.minR * this.minR, this.maxR * this.maxR);
+    const strength = (this.G * p.mass) / d2; // M=1
+    dir.normalize().mult(strength);
+    p.applyForce(dir);
+  }
+}
+
+// U1: Caminata aleatoria como fuerza de “ruido blanco” en aceleración.
+// a_rw es la magnitud de aceleración objetivo; aplicamos F = m * a_rw * û
+class RandomWalkForce {
+  constructor(a_rw = 0.05) { this.a = a_rw; }
+  applyTo(p) {
+    const aRand = p5.Vector.random2D().setMag(this.a);
+    const F = aRand.mult(p.mass);
+    p.applyForce(F);
+  }
+}
+class ParticleSystem {
+  constructor(x, y, options = {}) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+    this.generators = [];
+    this.emissionRate = options.emissionRate ?? 5;
+    this.maxBirths = options.maxBirths ?? Infinity;
+    this.births = 0;
+  }
+
+  // API de sistema físico: añadir fuerzas
+  addForceGenerator(gen) {
+    this.generators.push(gen);
+  }
+
+  addParticles() {
+    if (this.births >= this.maxBirths) return;
+    for (let i = 0; i < this.emissionRate; i++) {
+      this.particles.push(new Particle(this.origin.x, this.origin.y));
+      this.births++;
+      if (this.births >= this.maxBirths) break;
+    }
+  }
+
+  run() {
+    this.addParticles();
+    for (const p of this.particles) {
+      for (const gen of this.generators) gen.applyTo(p);
+      p.run();
+    }
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      if (this.particles[i].isDead()) this.particles.splice(i, 1);
+    }
+    push();
+    noFill(); stroke(0, 0, 100, 100);
+    circle(this.origin.x, this.origin.y, 10);
+    pop();
+  }
+
+  isDead() {
+    return this.births >= this.maxBirths && this.particles.length === 0;
+  }
+}
+```
+
+sketch.js 
+```js
+let systems = [];
+let defaults = {
+  emissionRate: 6,
+  useGravity: true,
+  useWind: false,
+  useRandomWalk: true,
+  useDrag: true,
+  useAttractor: false
+};
+
+// Atractor compartido (referencia viva que leen los generadores)
+let attractorPos;
+
+function setup() {
+  createCanvas(720, 480);
+  textFont('monospace', 12);
+  colorMode(HSB, 360, 100, 100, 255);
+
+  attractorPos = createVector(width / 2, height / 2);
+
+  // Crea un sistema inicial
+  systems.push(makeSystem(width * 0.5, height * 0.75));
+}
+
+function draw() {
+  background(14);
+
+  // Mueve el atractor al mouse si está activo y el mouse se mantiene presionado
+  if (defaults.useAttractor && mouseIsPressed) {
+    attractorPos.set(mouseX, mouseY);
+  }
+
+  // Corre los sistemas
+  for (let i = systems.length - 1; i >= 0; i--) {
+    systems[i].run();
+    if (systems[i].isDead()) systems.splice(i, 1);
+  }
+  noStroke(); fill(0, 0, 100);
+  text(sistemas: ${systems.length} | emite: ${defaults.emissionRate}/f
+[g] gravedad: ${onOff(defaults.useGravity)}  [w] viento: ${onOff(defaults.useWind)}  [r] random-walk: ${onOff(defaults.useRandomWalk)}
+[d] drag: ${onOff(defaults.useDrag)}  [a] atractor: ${onOff(defaults.useAttractor)}  [E/D] +/- emisión  |  click: nuevo sistema`,
+    12, 20
+  );
+
+  // Visual del atractor (si está activo)
+  if (defaults.useAttractor) {
+    push();
+    noFill(); stroke(200, 80, 100, 160);
+    circle(attractorPos.x, attractorPos.y, 16);
+    pop();
+  }
+}
+
+// Crear un sistema y conectar fuerzas según flags (U5: sistema físico)
+function makeSystem(x, y) {
+  const ps = new ParticleSystem(x, y, { emissionRate: defaults.emissionRate });
+
+  // U2: aceleraciones constantes
+  if (defaults.useGravity)  ps.addForceGenerator(new ConstantAccel(0, 0.12));
+  if (defaults.useWind)     ps.addForceGenerator(new ConstantAccel(0.02, 0));
+
+  // U1: caminata aleatoria
+  if (defaults.useRandomWalk) ps.addForceGenerator(new RandomWalkForce(0.05));
+
+  // U3: fuerzas físicas
+  if (defaults.useDrag)       ps.addForceGenerator(new Drag(0.02));
+  if (defaults.useAttractor)  ps.addForceGenerator(new Attractor(attractorPos, 40, 12, 500));
+
+  return ps;
+}
+
+function mousePressed() {
+  systems.push(makeSystem(mouseX, mouseY));
+}
+
+function keyPressed() {
+  const k = key.toLowerCase();
+  if (k === 'g') defaults.useGravity = !defaults.useGravity;
+  if (k === 'w') defaults.useWind = !defaults.useWind;
+  if (k === 'r') defaults.useRandomWalk = !defaults.useRandomWalk;
+  if (k === 'd') defaults.useDrag = !defaults.useDrag;
+  if (k === 'a') defaults.useAttractor = !defaults.useAttractor;
+
+  if (k === 'e') defaults.emissionRate = min(defaults.emissionRate + 1, 20);
+  if (k === 'd') defaults.emissionRate = max(defaults.emissionRate - 1, 1);
+
+  // Actualiza la emisión de los sistemas existentes (fuerzas nuevas se aplican a los nuevos sistemas)
+  for (const s of systems) s.emissionRate = defaults.emissionRate;
+}
+
+function onOff(b) { return b ? 'ON' : 'off'; }
+```
+
+**6. Captura**
+
+
 #### 5. ejemplo 4.7: a particle system with a repeller.
 
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > para la creación de partículas tambien se usa un emisor, con posición, velocidad aceleración y con el lifespan, que se agregan al array interno del sistema. En este caso, se agregan fuerzas y un repeller, que modifican la aceleración de cada particula, lo que afecta la trayectoria.
 > El lifespan va disminuyendo en cada frame, hasta que llega a 0 y la particula se considera muerta, ya el sistema recorre el array y elimina las que ya no están activas. 
 
+Experimento 
 
+**1. Conceptos usados**
+
+**2. como gestione la creación y desaparición de particulas**
+
+**3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+
+**4. [Enlace]()
+
+**5. Código**
+
+**6. Captura**
 
 
