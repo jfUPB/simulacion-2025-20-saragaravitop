@@ -9,20 +9,21 @@
 > Las particulas desaparecen con el lifespan, cuando ese valor llega a 0, o menos se mueren las particulas. En el arreglo, si isDead es true, la particula ya no tiene vida útil (para asi mantener el bucle sin que se rompa), y splice, la elimina de la memoria.
 
 **Experimento**
+
 **1. conceptos usados:**
 
-   * unidad 1: distribución de probabilidad
-   * unidad 2: motion 101
-   * unidad 5: sistema de partículas básico 
+  * unidad 1: distribución de probabilidad
+  * unidad 2: motion 101
+  * unidad 5: sistema de partículas básico 
 
 **2. como gestione la creación y desaparición de particulas**     
 
 creé una nueva instancia de BeeParticle en el centro del lienzo (es el panal). Y la desaparición la hice con el lifespan y el splice, que eliminan a las particulas dentro del array bees.
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
-   * unidad 1: distribución de probabilidad. Usé random() para asignar las velocidades iniciales y los colores de cada abeja. Lo usé para poder simular trayectorias mas naturales y que se viera aleatorio. 
-    * unidad 2: motion 101. Lo usé para asignarle a cada abeja una posición, velocidad y aceleración para moder modelar este movimiento físico realista. 
-    * unidad 5: sistema de partículas básico. Implementé un array para la creación y desapación de las abejitas.
+  * unidad 1: distribución de probabilidad. Usé random() para asignar las velocidades iniciales y los colores de cada abeja. Lo usé para poder simular trayectorias mas naturales y que se viera aleatorio.
+  * unidad 2: motion 101. Lo usé para asignarle a cada abeja una posición, velocidad y aceleración para moder modelar este movimiento físico realista. 
+  * unidad 5: sistema de partículas básico. Implementé un array para la creación y desapación de las abejitas.
 
 **4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/E2QRkb0iH)**   
 
@@ -153,6 +154,7 @@ function hexagon(x, y, radius) {
 La creación se hace con emisores que llaman a addParticles(), y lleva un conteo con un tope para dejar de emitir a tiempo. La desaparición se hace con lifespan y splice para eliminarlas del array. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+
    * unidad 1: ruido perlín. Usé noise() para generar un ángulo suave para mover el origen del emisor, lo usé para que de una variación coherente, y se vea fluido y natural la creación de las particulas de acuerdo al clic.
    * unidad 2: aceleración aleatoria. cada particula recibe una aceleración, esto añade una turbulencia a los trayectos de estas sin necesidad de usar una fuerza externa.
    * unidad 5: multiples sistemas. Se creo un array global con varios particleSystem, y son los que controlan la creación y desaparición de las particulas. 
@@ -350,6 +352,7 @@ function keyPressed() {
 con un sistema que crea las particulas, las cuales solo se forman si hay espacio, es decir, si no ha llegado al maximo, y si se lleno se pausa la producción. Las particulas mueren con el lifespan que va bajando hasta llegar a 0, y cuando tambien se llena, se van eliminando. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
+
    * unidad 1: distribución normal. La use para la variabilidad en el angulo de la velocidad inicial, con randomGaussian(), y mostrar las medias. 
    * unidad 2: aceleración personalizada. lo hice para separar el comportamiento global de la particula, asi se mantiene el polimorfismo. 
    * unidad 4: funciones sinusoudes, coordenadas polares. esta la usé para aportar variedad de forma visual para no romper el sistema. 
@@ -358,12 +361,9 @@ con un sistema que crea las particulas, las cuales solo se forman si hay espacio
 **4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/vlxOahLqy)**
 
 **5. Código**
+
 particle.js
 ```js
-// particle.js
-// Base + subclases (polimorfismo) y sistema extensible con registro
-// Incluye: flores a color (solo visual), maxBirths por sistema, y gating canEmit.
-
 class Particle {
   constructor(x, y, opts = {}) {
     this.pos = createVector(x, y);
@@ -633,7 +633,7 @@ function keyPressed() {
 ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria en cada una de las simulaciones?      
 > en este ejemplo tambien usan emisores para la creación de particulas, el emisor les da una posición fija. a las particulas se les puede aplicar una fuerza antes de actualizar su movimiento. Nuevamente se usa el lifespan, pero en esta ocasión va disminuyendo con el tiempo y cuando finalmente llega a 0, se eliminan las particulas usando el splice.
 
-**Experimento **
+**Experimento**
 
 **1. Conceptos usados**
 
@@ -652,7 +652,7 @@ la generación y creación de particulas se hace tal cual como en la original, l
 * unidad 3: modelar fuerzas/leyes de newton. Lo que hice con esto fue generar mas control en los movimientos de las particulas al generar un atractor 
 * unidad 5: sistema físico. Todos los conceptos que use arriba fue para generar mas sentido y coherencia con este sistema de particulas, porque entonces podia aplicar diferentes fuerzas en distintos momentos, como si fuera un switch. 
 
-**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/Fl5HZMwoY)
+**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/Fl5HZMwoY)**
 
 **5. Código**
 
@@ -896,19 +896,318 @@ function onOff(b) { return b ? 'ON' : 'off'; }
 > para la creación de partículas tambien se usa un emisor, con posición, velocidad aceleración y con el lifespan, que se agregan al array interno del sistema. En este caso, se agregan fuerzas y un repeller, que modifican la aceleración de cada particula, lo que afecta la trayectoria.
 > El lifespan va disminuyendo en cada frame, hasta que llega a 0 y la particula se considera muerta, ya el sistema recorre el array y elimina las que ya no están activas. 
 
-Experimento 
+**Experimento** 
 
 **1. Conceptos usados**
 
+  * unidad 2: aceleración hacia/desde el mouse
+  * unidad 3: n-bodies
+  * unidad 5: sistema con interacción externa. 
+
 **2. como gestione la creación y desaparición de particulas**
+La creación de particulas se hace como en los ejemplos anteriores, se crea una particula en el particleSystem, y de acuerdo a las diferentes fuerzas aplicadas por el mouse o la aceleración las particulas se mueven de acuerdo a eso. Y las particulas desaparecen con el isDead y el splice. 
 
 **3. Explicar qué concepto aplique, cómo lo aplique y por qué.**
 
-**4. [Enlace]()
+  * unidad 2: aceleración hacia/desde el mouse. use este porque me parece muy divertido e interesante como funciona el movimiento o la atracción hacia el mouse. Lo hice creando un vector y normalizando. 
+  * unidad 3: n-bodies. esto lo hice creando multiples atractores y repulsores que atraen a los sistemas de particulas. 
+  * unidad 5: sistema con interacción externa. esto fue porque el sistema lee el estado externo en cada frame y por eso utilice los atractores y repulsores. 
+
+**4. [Enlace](https://editor.p5js.org/saragaravitop/sketches/6EDW6wn5X)**
 
 **5. Código**
 
+particle.js
+```js
+class Particle {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.mass = constrain(randomGaussian(1.0, 0.3), 0.5, 2.0);
+    const ang = random(-PI/5, PI/5) - HALF_PI;           // mayormente hacia arriba
+    const mag = constrain(randomGaussian(2.0, 0.6), 0.2, 4.0);
+    this.vel = p5.Vector.fromAngle(ang).mult(mag);
+    this.acc = createVector(0, 0);
+    this.size = map(this.mass, 0.5, 2.0, 5, 12);
+    this.lifespan = 255;
+  }
+
+  applyForce(F) { this.acc.add(p5.Vector.div(F, this.mass)); } // a = F/m
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.vel.mult(0.995);
+    this.lifespan -= 2.2;
+  }
+
+  display() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    noStroke();
+    fill(210, 40, 95, this.lifespan); // HSB
+    circle(0, 0, this.size);
+    pop();
+  }
+
+  run() { this.update(); this.display(); }
+  isDead() { return this.lifespan <= 0; }
+}
+class Body {
+  constructor(x, y, { mass = 25, k = +1, G = 80, movable = true } = {}) {
+    this.pos = createVector(x, y);
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
+    this.mass = mass;     // “fuerza” del cuerpo
+    this.k = k;           // +1 = atractor, -1 = repulsor
+    this.G = G;           // constante de fuerza
+    this.movable = movable;
+    this.radius = map(this.mass, 10, 60, 8, 18);
+  }
+
+  // Fuerza ejercida sobre una partícula
+  forceOnParticle(p) {
+    const dir = p5.Vector.sub(this.pos, p.pos);
+    const d2 = constrain(dir.magSq(), 100, 90000);     // suavizado (min/max r^2)
+    const strength = (this.k * this.G * this.mass * p.mass) / d2;
+    return dir.normalize().mult(strength);
+  }
+
+  // Interacción entre cuerpos (opcional, para n-body real)
+  applyPairForce(other) {
+    if (!this.movable && !other.movable) return;
+    const dir = p5.Vector.sub(other.pos, this.pos);
+    const d2 = constrain(dir.magSq(), 100, 90000);
+    const strength = (this.k * other.k * this.G * this.mass * other.mass) / d2;
+    const F = dir.normalize().mult(strength);
+    if (this.movable) this.acc.add(F.copy().div(this.mass));
+    if (other.movable) other.acc.sub(F.copy().div(other.mass)); // 3ª ley
+  }
+
+  update() {
+    if (!this.movable) return;
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.vel.mult(0.995);
+    // mantener dentro del lienzo
+    this.pos.x = constrain(this.pos.x, 0, width);
+    this.pos.y = constrain(this.pos.y, 0, height);
+  }
+
+  display() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    stroke(0, 0, 100, 160);
+    strokeWeight(1.5);
+    noFill();
+    circle(0, 0, this.radius * 2);
+ noStroke();
+    if (this.k < 0) fill(0, 80, 100, 200);
+    else fill(140, 70, 100, 200);
+    circle(0, 0, this.radius * 1.2);
+    pop();
+  }
+
+  contains(mx, my) {
+    return p5.Vector.dist(this.pos, createVector(mx, my)) <= this.radius * 1.2;
+  }
+}
+class ParticleSystem {
+  constructor(x, y, options = {}) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+    this.emissionRate = options.emissionRate ?? 6;
+    this.maxBirths = options.maxBirths ?? Infinity;
+    this.births = 0;
+    this.bodiesRef = options.bodiesRef ?? [];
+    this.mouseMode = options.mouseMode ?? 'off'; // 'off' | 'toward' | 'away'
+    this.mouseAccel = options.mouseAccel ?? 0.06;
+  }
+
+  setExternal({ bodiesRef, mouseMode, mouseAccel } = {}) {
+    if (bodiesRef)  this.bodiesRef = bodiesRef;
+    if (mouseMode)  this.mouseMode = mouseMode;
+    if (mouseAccel !== undefined) this.mouseAccel = mouseAccel;
+  }
+
+  addParticles() {
+    if (this.births >= this.maxBirths) return;
+    for (let i = 0; i < this.emissionRate; i++) {
+      this.particles.push(new Particle(this.origin.x, this.origin.y));
+      this.births++;
+      if (this.births >= this.maxBirths) break;
+    }
+  }
+
+  run() {
+    this.addParticles();
+    for (const p of this.particles) {
+      // Unidad 2: aceleración hacia/desde el mouse
+      if (this.mouseMode !== 'off') {
+        const m = createVector(mouseX, mouseY);
+        let dir = p5.Vector.sub(m, p.pos);
+        if (dir.magSq() > 0) {
+          dir.normalize().mult(this.mouseAccel * p.mass);
+          if (this.mouseMode === 'away') dir.mult(-1);
+          p.applyForce(dir);
+        }
+      }
+      // Unidad 3: n-bodies
+      for (const b of this.bodiesRef) {
+        p.applyForce(b.forceOnParticle(p));
+      }
+      p.run();
+    }
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      if (this.particles[i].isDead()) this.particles.splice(i, 1);
+    }
+    push();
+    noFill(); stroke(0, 0, 100, 100);
+    circle(this.origin.x, this.origin.y, 10);
+    pop();
+  }
+
+  isDead() {
+    return this.births >= this.maxBirths && this.particles.length === 0;
+  }
+}
+```
+
+sketch.js
+```js
+let systems = [];
+let bodies = [];
+let defaults = {
+  emissionRate: 6,
+  mouseMode: 'off',     // 'off' | 'toward' | 'away'
+  mouseAccel: 0.06,
+  bodyType: 'attractor', // 'attractor' | 'repeller'
+  nBodyMutual: false     // si true, los cuerpos se atraen/repelen entre sí
+};
+
+let draggingBodyIndex = -1;
+
+function setup() {
+  createCanvas(720, 480);
+  textFont('monospace', 12);
+  colorMode(HSB, 360, 100, 100, 255);
+
+  // Sistema inicial
+  const ps = new ParticleSystem(width * 0.5, height * 0.75, {
+    emissionRate: defaults.emissionRate,
+    bodiesRef: bodies,
+    mouseMode: defaults.mouseMode,
+    mouseAccel: defaults.mouseAccel
+  });
+  systems.push(ps);
+}
+
+function draw() {
+  background(14);
+
+  // n-body (mutuo) entre cuerpos (opcional)
+  if (defaults.nBodyMutual) {
+    for (let i = 0; i < bodies.length; i++) {
+      for (let j = i + 1; j < bodies.length; j++) {
+        bodies[i].applyPairForce(bodies[j]);
+      }
+    }
+  }
+  for (const b of bodies) { b.update(); b.display(); }
+
+  // Ejecutar sistemas (inyectando referencias externas)
+  for (let i = systems.length - 1; i >= 0; i--) {
+    systems[i].setExternal({
+      bodiesRef: bodies,
+      mouseMode: defaults.mouseMode,
+      mouseAccel: defaults.mouseAccel
+    });
+    systems[i].emissionRate = defaults.emissionRate;
+    systems[i].run();
+    if (systems[i].isDead()) systems.splice(i, 1);
+  }
+  noStroke(); fill(0, 0, 100);
+  text(sistemas: ${systems.length}  cuerpos: ${bodies.length}  emisión: ${defaults.emissionRate}/f, 12, 20);
+  text([click] nuevo sistema | [SHIFT+click] nuevo cuerpo (${defaults.bodyType}) | [drag] mover cuerpo, 12, 38);
+  text([M] mouse accel: ${defaults.mouseMode}  | [1] attractor  [2] repeller  | [N] n-bodies mutuos: ${onOff(defaults.nBodyMutual)}, 12, 56);
+  text([E/D] +/- emisión  |  [+/-] fuerza mouse  |  [X] limpiar cuerpos`, 12, 74);
+}
+
+function mousePressed() {
+  // ¿estoy sobre un cuerpo? → empezar drag
+  for (let i = bodies.length - 1; i >= 0; i--) {
+    if (bodies[i].contains(mouseX, mouseY)) {
+      draggingBodyIndex = i;
+      return;
+    }
+  }
+  // con SHIFT: agregar un cuerpo
+  if (keyIsDown(SHIFT)) {
+    addBodyAt(mouseX, mouseY);
+    return;
+  }
+  // click normal: nuevo sistema
+  systems.push(new ParticleSystem(mouseX, mouseY, {
+    emissionRate: defaults.emissionRate,
+    bodiesRef: bodies,
+    mouseMode: defaults.mouseMode,
+    mouseAccel: defaults.mouseAccel
+  }));
+}
+
+function mouseDragged() {
+  if (draggingBodyIndex >= 0) {
+    bodies[draggingBodyIndex].pos.set(mouseX, mouseY);
+    bodies[draggingBodyIndex].vel.mult(0); // estabilidad al arrastrar
+  }
+}
+
+function mouseReleased() { draggingBodyIndex = -1; }
+
+function keyPressed() {
+  const k = key.toLowerCase();
+
+  if (k === 'e') defaults.emissionRate = min(defaults.emissionRate + 1, 20);
+  if (k === 'd') defaults.emissionRate = max(defaults.emissionRate - 1, 1);
+
+  if (k === 'x') bodies = []; // limpiar cuerpos
+
+  if (key === '1') defaults.bodyType = 'attractor';
+  if (key === '2') defaults.bodyType = 'repeller';
+
+  if (k === 'n') defaults.nBodyMutual = !defaults.nBodyMutual;
+
+  if (k === 'm') {
+    // ciclo: off → toward → away → off
+    defaults.mouseMode = (defaults.mouseMode === 'off') ? 'toward' :
+                         (defaults.mouseMode === 'toward') ? 'away' : 'off';
+  }
+
+  if (key === '+') defaults.mouseAccel = min(defaults.mouseAccel + 0.01, 0.2);
+  if (key === '-') defaults.mouseAccel = max(defaults.mouseAccel - 0.01, 0.0);
+
+  // tecla 'b' para soltar un cuerpo en el mouse
+  if (k === 'b') addBodyAt(mouseX, mouseY);
+}
+
+function addBodyAt(x, y) {
+  const isRep = defaults.bodyType === 'repeller';
+  bodies.push(new Body(x, y, {
+    mass: random(18, 36),
+    k: isRep ? -1 : +1,
+    G: 80,
+    movable: true
+  }));
+}
+
+function onOff(b) { return b ? 'ON' : 'off'; }
+```
+
 **6. Captura**
+
+<img width="652" height="436" alt="image" src="https://github.com/user-attachments/assets/5bf4f87e-6b2e-4dd2-8ba5-6eed90c2a94c" />
+
 
 
 
