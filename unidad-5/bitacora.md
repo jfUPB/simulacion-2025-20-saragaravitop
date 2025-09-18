@@ -1208,6 +1208,384 @@ function onOff(b) { return b ? 'ON' : 'off'; }
 
 <img width="652" height="436" alt="image" src="https://github.com/user-attachments/assets/5bf4f87e-6b2e-4dd2-8ba5-6eed90c2a94c" />
 
+### Actividad 3 
 
+**1. Diseño**
+   
+ *** ¿Cuál es el concepto de tu obra?**
+ 
+   Quise representar el dibujo de mandalas. Como con cada trazo se reproducen particulas que aunque al trazarlas se vuelven caoticas generan un dibujo final, que seria la mandala final.
+   
+ *** ¿Qué quieres comunicar con ella?**
+ 
+   No se muy bien, un poco de orden dentro del caos. me gusta mucho dibujar mandalas, es muy divertido y relajante, aunque tambien puede ser un poco caotico por la cantidad de detalles y que para que se vea bien debe de haber un buen trazo, tener un buen pulso. Mas o menos quiero comunicar eso, y a traves de la simetría poder demostrar la calma, el orden e inluso el caos dentro de esos dos conceptos. 
 
+**2. Como use herencia y polimorfismo**
+   
+   * herencia: con cada particula generaba una posición, velocidad y aceleración, que se organizan para comportamientos en especifico. (de acuerdo al trazo del dibujo). 
+   * polimorfismo: para guardar las particulas en tipos distintos. 
 
+**3. Conceptos unidades anteriores**
+
+  * unidad 1: caminatas aleatorias. para generar trayectorias orgánicas que se van añadiendo con aceleraciones pequeñas. 
+  * unidad 2: aceleración hacia/desde el mouse. Se crean los vectores de acuerdo a la fuerza y la punta del lapiz, se normalizan y con la tecla M por ejemplo, podemos ver como funciona la fuerza del viento. 
+  * unidad 3: modelar fuerzas, como la gravedad y la atracción del viento. Use esto para modelar las fuerzas que queria representar desde la unidad 2, agregarle gravedad y pues directamente la fuerza del lapiz. 
+  * unidad 4: ondas, funciones sinusoides. Me gusta la forma de las ondas sinusoides, asi que lo agregue para ver ese movimiento. creo que por la cantidad de particulas no se nota mucho pero ahi se medio ve. 
+
+**4. Como gestione tiempo de vida de las particulas y memoria**
+   
+Cada particula tiene un lifespan que decrece hasta llegar a = y pues ahi mueren, splice hace el recorrido en el array para limpiarlas, y con un collector organice para que liberara la memoria. Use tambien una emisión para controlar cuantas particulas salen punto por punto mientras se dibuja en el lienzo para no desbordar. 
+
+**5. Interactividad**
+   
+Solo el lapiz funciona dentro del lienzo (con la entrada de la tableta grafica).
+Implemente estos controles adicionales: (algunos fueron propuestos por mi, otros loquis que saco la IA)
+  * [   ]  número de slices;
+  * tecla S activa el espejo (on/off).
+  * tecla M activa la fuerza del lápiz: (off → toward → away).
+  * tecla G se activa la gravedad (on/off)
+  * tecla D se activa el drag (on/off).
+  * tecla X se limpia el lienzo y/o las partículas.
+
+**6. [Enlace apply unidad 5](https://editor.p5js.org/saragaravitop/sketches/sKyIUMg2q)
+**
+**7. Código**
+
+particle.js 
+```js
+class Particle {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.mass = constrain(randomGaussian(1.0, 0.25), 0.5, 2.0);
+    const ang = random(-PI/6, PI/6) - HALF_PI; // salida suave hacia arriba
+    const spd = constrain(randomGaussian(2.0, 0.8), 0.2, 4.0);
+    this.vel = p5.Vector.fromAngle(ang).mult(spd);
+    this.acc = createVector(0, 0);
+    this.lifespan = 255;
+    this.size = map(this.mass, 0.5, 2.0, 4, 10);
+    this.phase = random(TWO_PI);
+  }
+  applyForce(F) { this.acc.add(p5.Vector.div(F, this.mass)); } // a = F/m
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.vel.mult(0.995);
+    this.lifespan -= 2.0;
+  }
+  display() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    noStroke();
+    fill(210, 40, 95, this.lifespan);
+    circle(0, 0, this.size);
+    pop();
+  }
+  run(){ this.update(); this.display(); }
+  isDead(){ return this.lifespan <= 0; }
+}
+
+// U1: caminata aleatoria (pequeño “jitter” cada frame)
+class WanderParticle extends Particle {
+  constructor(x, y){ super(x, y); this.jitter = 0.06; }
+  update(){
+    const a = p5.Vector.random2D().setMag(this.jitter * this.mass);
+    this.applyForce(a);
+    super.update();
+  }
+  display(){
+    push(); translate(this.pos.x, this.pos.y);
+    noStroke(); fill(50, 80, 100, this.lifespan);
+    circle(0, 0, this.size * 0.9); pop();
+  }
+}
+
+// U4: sinusoide transversal (onda perpendicular a la velocidad)
+class SineParticle extends Particle {
+  constructor(x, y){ super(x, y); this.amp=0.06; this.freq=0.12; }
+  update(){
+    const v = this.vel.copy();
+    if (v.magSq() > 0) {
+      v.normalize();
+      const perp = createVector(-v.y, v.x);
+      const a = this.amp * sin(this.phase + frameCount * this.freq);
+      this.applyForce(perp.mult(a * this.mass));
+    }
+    super.update();
+  }
+  display(){
+    push(); translate(this.pos.x, this.pos.y);
+    noStroke(); fill(300, 60, 100, this.lifespan);
+    circle(0,0,this.size*0.95); pop();
+  }
+}
+
+// ===== Fuerzas (U2 mouse/pen accel, U3 gravity+drag) =====
+class GravityForce {
+  constructor(g=0.12){ this.g=g; }
+  applyTo(p){ p.applyForce(createVector(0, this.g * p.mass)); }
+}
+class DragForce {
+  constructor(k=0.02){ this.k=k; }
+  applyTo(p){
+    const v = p.vel.copy(); const s=v.mag(); if (!s) return;
+    p.applyForce(v.mult(-1).normalize().mult(this.k * s * s));
+  }
+}
+// U2: aceleración hacia/desde el lápiz/pen (usa posición global penPos)
+class PenForce {
+  constructor(mode='off', strength=0.07){ this.mode=mode; this.strength=strength; }
+  setMode(m){ this.mode=m; }
+  applyTo(p){
+    if (this.mode === 'off' || !window.penPos) return;
+    const dir = p5.Vector.sub(window.penPos, p.pos);
+    if (dir.magSq() === 0) return;
+    dir.normalize().mult(this.strength * p.mass);
+    if (this.mode === 'away') dir.mult(-1);
+    p.applyForce(dir);
+  }
+}
+
+// ===== Sistema con registro de tipos y generadores de fuerzas =====
+class ParticleSystem {
+  constructor() {
+    this.particles = [];
+    this.registry = [
+      { cls: Particle,      weight: 1 },
+      { cls: WanderParticle,weight: 1 },
+      { cls: SineParticle,  weight: 1 },
+    ];
+    this.generators = [];
+    this.spawnPerPoint = 3; // cuántas partículas sembrar por punto del trazo
+  }
+
+  addForceGenerator(g){ this.generators.push(g); }
+  registerType(cls, weight=1){ this.registry.push({cls, weight: max(0, weight)}); }
+
+  pickClass(){
+    const total = this.registry.reduce((s,r)=>s+r.weight,0);
+    let t = random(total);
+    for (const r of this.registry){ if ((t-=r.weight) < 0) return r.cls; }
+    return Particle;
+  }
+
+  // Siembra varias partículas en una posición (para cada réplica del trazo)
+  emitAt(x, y){
+    for (let i=0;i<this.spawnPerPoint;i++){
+      const K = this.pickClass();
+      this.particles.push(new K(x, y));
+    }
+  }
+
+  run(){
+    for (let i=this.particles.length-1;i>=0;i--){
+      const p = this.particles[i];
+      for (const g of this.generators) g.applyTo(p);
+      p.run();
+      if (p.isDead()) this.particles.splice(i, 1);
+    }
+  }
+}
+```
+sketch.js 
+
+```js
+let cnv, inkLayer;
+let ps;
+let gravityOn = true, dragOn = true;
+let penForce;
+let entitiesHUD = 0;
+
+// ---- Mandala params ----
+let slices = 12;          // número de sectores radiales
+let mirrorSlices = true;  // espejo en cada sector
+let center;               // centro del mandala
+
+// ---- Pen-only ----
+let painting = false;
+let lastPen = null;
+window.penPos = null; // usado por PenForce
+
+function setup() {
+  cnv = createCanvas(800, 400);
+  colorMode(HSB, 360, 100, 100, 255);
+  background(14);
+  center = createVector(width/2, height/2);
+
+  // capa persistente para el dibujo del mandala
+  inkLayer = createGraphics(width, height);
+  inkLayer.colorMode(HSB, 360, 100, 100, 255);
+  inkLayer.clear();
+
+  // Particles: sistema + fuerzas (U3) + fuerza de lápiz (U2)
+  ps = new ParticleSystem();
+  if (gravityOn) ps.addForceGenerator(new GravityForce(0.12));
+  if (dragOn)    ps.addForceGenerator(new DragForce(0.02));
+  penForce = new PenForce('off', 0.08); // off | toward | away
+  ps.addForceGenerator(penForce);
+
+  // Pointer Events solo para pen
+  const el = cnv.elt;
+  el.style.touchAction = 'none';
+  el.addEventListener('pointerdown', onPointerDown, { passive:false });
+  el.addEventListener('pointermove', onPointerMove, { passive:false });
+  el.addEventListener('pointerup',   onPointerUp,   { passive:false });
+  el.addEventListener('pointercancel', onPointerUp, { passive:false });
+  el.addEventListener('pointerleave',  onPointerLeave, { passive:false });
+}
+
+function draw() {
+  // leve estela para partículas
+  fill(14, 0, 0, 18);
+  rect(0,0,width,height);
+
+  // corre partículas
+  ps.run();
+
+  // dibuja el mandala persistente
+  image(inkLayer, 0, 0);
+
+  // HUD
+  drawHUD();
+}
+function radialReplicates(x0, y0, x1, y1) {
+  // genera segmentos replicados en N sectores; si mirrorSlices=true también refleja
+  const segs = [];
+  const base0 = createVector(x0 - center.x, y0 - center.y);
+  const base1 = createVector(x1 - center.x, y1 - center.y);
+  const dAng = TWO_PI / slices;
+
+  for (let k = 0; k < slices; k++) {
+    const rot = dAng * k;
+    const r0 = rotateVec(base0, rot);
+    const r1 = rotateVec(base1, rot);
+    segs.push([center.x + r0.x, center.y + r0.y, center.x + r1.x, center.y + r1.y]);
+
+   if (mirrorSlices) {
+      // reflejo: invertir X en el marco rotado (equivalente a y→-y antes de rotar)
+      const m0 = createVector(base0.x, -base0.y);
+      const m1 = createVector(base1.x, -base1.y);
+      const mr0 = rotateVec(m0, rot);
+      const mr1 = rotateVec(m1, rot);
+      segs.push([center.x + mr0.x, center.y + mr0.y, center.x + mr1.x, center.y + mr1.y]);
+    }
+  }
+  return segs;
+}
+
+function rotateVec(v, ang){
+  const ca = cos(ang), sa = sin(ang);
+  return createVector(v.x * ca - v.y * sa, v.x * sa + v.y * ca);
+}
+
+function drawMandalaStroke(x0, y0, x1, y1) {
+  const segs = radialReplicates(x0, y0, x1, y1);
+
+  // dibujo persistente
+  inkLayer.stroke( random([300, 260, 200, 140, 40]), 70, 100, 200 );
+  inkLayer.strokeWeight(3.5);
+  for (const s of segs) {
+    inkLayer.line(s[0], s[1], s[2], s[3]);
+  }
+
+  // sembrar partículas sobre el trazo (varios puntos por segmento)
+  for (const s of segs) {
+    const [ax, ay, bx, by] = s;
+    const steps = max(1, floor(dist(ax, ay, bx, by) / 12));
+    for (let i=0; i<=steps; i++){
+      const t = i/steps;
+      const x = lerp(ax, bx, t), y = lerp(ay, by, t);
+      ps.emitAt(x, y);
+      entitiesHUD += ps.spawnPerPoint;
+    }
+  }
+}
+
+function onPointerDown(e){
+  if (e.pointerType !== 'pen') return;
+  e.preventDefault();
+
+  const {x,y} = localXY(e);
+  if (!inside(x,y)) return;
+
+  painting = ((e.buttons & 1) === 1) || e.pressure > 0;
+  lastPen = createVector(x,y);
+  window.penPos = createVector(x,y);
+}
+
+function onPointerMove(e){
+  if (e.pointerType !== 'pen') return;
+  e.preventDefault();
+
+  const {x,y} = localXY(e);
+  if (!inside(x,y)) return;
+
+  window.penPos = createVector(x,y);
+
+  if (painting && lastPen){
+    drawMandalaStroke(lastPen.x, lastPen.y, x, y);
+    lastPen.set(x,y);
+  }
+}
+
+function onPointerUp(e){
+  if (e.pointerType !== 'pen') return;
+  e.preventDefault();
+  painting = false;
+  lastPen = null;
+  window.penPos = null; // fuerza de lápiz se apaga cuando no dibujas
+}
+
+function onPointerLeave(e){
+  if (e.pointerType !== 'pen') return;
+  painting = false;
+  lastPen = null;
+  window.penPos = null;
+}
+
+function localXY(e){
+  const r = cnv.elt.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+function inside(x,y){ return x>=0 && x<width && y>=0 && y<height; }
+function keyPressed(){
+  const k = key.toLowerCase();
+  if (k === '[') slices = max(2, slices - 1);
+  if (k === ']') slices = min(48, slices + 1);
+  if (k === 's') mirrorSlices = !mirrorSlices;
+
+  if (k === 'm') { // pen force mode
+    penForce.setMode(penForce.mode === 'off' ? 'toward' :
+                     penForce.mode === 'toward' ? 'away' : 'off');
+  }
+  if (k === 'g') { gravityOn = !gravityOn; if (gravityOn) ps.addForceGenerator(new GravityForce(0.12)); }
+  if (k === 'd') { dragOn    = !dragOn;    if (dragOn)    ps.addForceGenerator(new DragForce(0.02)); }
+
+  if (k === 'x') { // limpiar todo
+    background(14); inkLayer.clear(); ps.particles.length = 0; entitiesHUD = 0;
+  }
+}
+
+// Desactivar interacciones mouse/touch de p5 para que solo pen funcione
+function mousePressed(){ return false; }
+function mouseDragged(){ return false; }
+function touchStarted(){ return false; }
+function touchMoved(){ return false; }
+function touchEnded(){ return false; }
+
+function drawHUD(){
+  push();
+  noStroke(); fill(0,0,100);
+  textSize(14);
+  text(Slices: ${slices}  Mirror: ${mirrorSlices?'ON':'off'}  PenForce: ${penForce.mode}  G:${gravityOn?'ON':'off'} D:${dragOn?'ON':'off'}, 12, 22);
+  text(Partículas: ${ps.particles.length} (emitidos: ${entitiesHUD})  Controles: [ / ] S M G D X`, 12, 42);
+  pop();
+}
+```
+**8. Capturas**
+   
+<img width="653" height="365" alt="image" src="https://github.com/user-attachments/assets/58e440e2-1ced-4329-8663-ea871da0c131" />
+
+<img width="656" height="376" alt="image" src="https://github.com/user-attachments/assets/8ae3610d-01ac-44b8-8dcd-3a060d737b52" />
+
+<img width="654" height="368" alt="image" src="https://github.com/user-attachments/assets/7c381ff6-0e3f-4352-ab2d-e7874674542b" />
