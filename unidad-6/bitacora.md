@@ -81,17 +81,17 @@ estas reglas se implmentan con steering forces, y la relación es que estos son 
 
 **1. Explicación de las tres reglas**
 
-**Regla 1: separación** 
-* objetivo: evitar colisiones. 
-* lógica: Se calcula un vector que aleja al boid de sus vecinos cercanos. Mientras mas cerca, ma fuerte la fuerza de repulsión. 
+> **Regla 1: separación** 
+> * objetivo: evitar colisiones. 
+> * lógica: Se calcula un vector que aleja al boid de sus vecinos cercanos. Mientras mas cerca, ma fuerte la fuerza de repulsión. 
 
-Regla 2: alineación
-* objetivo: coordinar la dirección. 
-* logica: se calcula el promedio de las velocidades de los vecinos y se ajusta a la dirección del boid para alinearse con ellos. 
+> **Regla 2: alineación**
+> * objetivo: coordinar la dirección. 
+> * logica: se calcula el promedio de las velocidades de los vecinos y se ajusta a la dirección del boid para alinearse con ellos. 
 
-Regla 3: cohesión
-* objetivo: mantener al grupo unido. 
-* logica: se calcula el centro de masa de los vecinos y se genera un vector que atrae al boid hacia ese centro. 
+> **Regla 3: cohesión**
+> * objetivo: mantener al grupo unido. 
+> * logica: se calcula el centro de masa de los vecinos y se genera un vector que atrae al boid hacia ese centro. 
 
 **2. Parámetros clave**
 
@@ -101,9 +101,9 @@ Regla 3: cohesión
 > * PerceptionRadius: lo agrego porque es el radio dentro del cual el boid detecta a sus vecinos para poder aplicar las reglas de arriba.
 > * seekForce: peso de la nueva fuerza de seguimiento del objetivo
 
-**4. Modificaciones**
+**3. Modificaciones**
 
-**1. Cohesión, y alineación = 0**
+**Cohesión, y alineación = 0**
 > puse el peso de cohesión y alineación a cero para que esta regla no tenga efecto.
 
 **efecto observado**
@@ -116,3 +116,4 @@ Regla 3: cohesión
 <img width="610" height="456" alt="image" src="https://github.com/user-attachments/assets/3419cbd6-0b1f-4417-8e79-56255fa77b05" />
 
 <img width="612" height="465" alt="image" src="https://github.com/user-attachments/assets/362d8ffd-7b44-47d3-b527-92a76c955966" />
+
