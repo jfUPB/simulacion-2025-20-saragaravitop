@@ -77,7 +77,32 @@ estas reglas se implmentan con steering forces, y la relación es que estos son 
   <img width="583" height="221" alt="image" src="https://github.com/user-attachments/assets/18ab9f13-e26c-4091-8f10-46d5cb4f6715" />
 
 
+### Actividad 04
 
+**1. Estructura de datos**
 
+> La estructura de datos en el floking se genera mediante los agentes, cada uno de ellos calcula sus propios vectores de comportamiento en tiempo real, basandose en sus vecinos. Esto se calcula mediante las tres reglas de separación (es el vector que aleja al boids de los vecinos), alineación (el vector que orienta al boid en la misma dirección de sus vecinos) y la cohesión (vector que lo atrae hacia el centro del grupo).
 
+**2. Agentes**
 
+> cada boid calcula los tres vectores de las tres reglas mencionadas arriba, luego, los suma para obtener una fuerza total de su dirección y esa fuerza es aplicada a la aceleración, para finalmente moverlo de acuerdo a su posición y velocidad actual. 
+
+**3. Parámetros clave**
+
+> * resolution: no esta directamente porque no hay cuadricula.
+> * maxfoce: es la fuerza máxima de dirección que se puede aplicar.
+> * maxspeed: es la velocidad máxima que puede alcanzar un boid. Controla que tan rápido va.
+> * PerceptionRadius: lo agrego porque es el radio dentro del cual el boid detecta a sus vecinos para poder aplicar las reglas de arriba. 
+
+**4. Modificaciones**
+
+Aumentar considerablemente maxspeed y maxforce, en boid.js. 
+
+> * maxspeed: cambiamos de 3 a 10.
+> * maxforce: cambiamos de 0.05 a 0.5.
+
+**efecto observado**
+> * los boids se mueven mucho más rápido.
+> * cambian de dirección más bruscamente.
+> * se dispersan mas porque las fuerzas no logran mantenerlos juntos todo el tiempo.
+> * el movimiento es más caótico y menos natural
