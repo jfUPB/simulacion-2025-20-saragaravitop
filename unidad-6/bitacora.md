@@ -79,24 +79,31 @@ estas reglas se implmentan con steering forces, y la relación es que estos son 
 
 ### Actividad 04
 
-**1. Estructura de datos**
+**1. Explicación de las tres reglas**
 
-> La estructura de datos en el floking se genera mediante los agentes, cada uno de ellos calcula sus propios vectores de comportamiento en tiempo real, basandose en sus vecinos. Esto se calcula mediante las tres reglas de separación (es el vector que aleja al boids de los vecinos), alineación (el vector que orienta al boid en la misma dirección de sus vecinos) y la cohesión (vector que lo atrae hacia el centro del grupo).
+**Regla 1: separación** 
+* objetivo: evitar colisiones. 
+* lógica: Se calcula un vector que aleja al boid de sus vecinos cercanos. Mientras mas cerca, ma fuerte la fuerza de repulsión. 
 
-**2. Agentes**
+Regla 2: alineación
+* objetivo: coordinar la dirección. 
+* logica: se calcula el promedio de las velocidades de los vecinos y se ajusta a la dirección del boid para alinearse con ellos. 
 
-> cada boid calcula los tres vectores de las tres reglas mencionadas arriba, luego, los suma para obtener una fuerza total de su dirección y esa fuerza es aplicada a la aceleración, para finalmente moverlo de acuerdo a su posición y velocidad actual. 
+Regla 3: cohesión
+* objetivo: mantener al grupo unido. 
+* logica: se calcula el centro de masa de los vecinos y se genera un vector que atrae al boid hacia ese centro. 
 
-**3. Parámetros clave**
+**2. Parámetros clave**
 
-> * resolution: no esta directamente porque no hay cuadricula.
-> * maxfoce: es la fuerza máxima de dirección que se puede aplicar.
+> * Pesos de reglas: son multiplicadores que ajustan a influencia de cada regla.
+> * maxfoce: es la fuerza máxima de dirección que se puede aplicar a un boid.
 > * maxspeed: es la velocidad máxima que puede alcanzar un boid. Controla que tan rápido va.
-> * PerceptionRadius: lo agrego porque es el radio dentro del cual el boid detecta a sus vecinos para poder aplicar las reglas de arriba. 
+> * PerceptionRadius: lo agrego porque es el radio dentro del cual el boid detecta a sus vecinos para poder aplicar las reglas de arriba.
+> * seekForce: peso de la nueva fuerza de seguimiento del objetivo
 
 **4. Modificaciones**
 
-Aumentar considerablemente maxspeed y maxforce, en boid.js. 
+se introduce un target que todos los boids intentans seguir, además de aplicar las reglas del flocking. también agregué una fuerza de tipo seek en la clase boid. 
 
 > * maxspeed: cambiamos de 3 a 10.
 > * maxforce: cambiamos de 0.05 a 0.5.
@@ -106,3 +113,4 @@ Aumentar considerablemente maxspeed y maxforce, en boid.js.
 > * cambian de dirección más bruscamente.
 > * se dispersan mas porque las fuerzas no logran mantenerlos juntos todo el tiempo.
 > * el movimiento es más caótico y menos natural
+
