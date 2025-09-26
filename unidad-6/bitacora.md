@@ -103,14 +103,16 @@ Regla 3: cohesión
 
 **4. Modificaciones**
 
-se introduce un target que todos los boids intentans seguir, además de aplicar las reglas del flocking. también agregué una fuerza de tipo seek en la clase boid. 
-
-> * maxspeed: cambiamos de 3 a 10.
-> * maxforce: cambiamos de 0.05 a 0.5.
+**1. Cohesión, y alineación = 0**
+> puse el peso de cohesión y alineación a cero para que esta regla no tenga efecto.
 
 **efecto observado**
-> * los boids se mueven mucho más rápido.
-> * cambian de dirección más bruscamente.
-> * se dispersan mas porque las fuerzas no logran mantenerlos juntos todo el tiempo.
-> * el movimiento es más caótico y menos natural
+> * El enjambre se dispersa con el tiempo.
+> * Se ven grupitos sueltos que no terminan de reunirse.
+> * El movimiento global es menos cohesivo, mostrando que la alineación puede crear hileras que se rompen rápido.
 
+<img width="607" height="463" alt="image" src="https://github.com/user-attachments/assets/408875cb-9f61-44e8-836b-2c34c393f492" />
+
+<img width="610" height="456" alt="image" src="https://github.com/user-attachments/assets/3419cbd6-0b1f-4417-8e79-56255fa77b05" />
+
+<img width="612" height="465" alt="image" src="https://github.com/user-attachments/assets/362d8ffd-7b44-47d3-b527-92a76c955966" />
