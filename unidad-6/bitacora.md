@@ -1314,3 +1314,7 @@ function updateStatus(){
 
 <img width="672" height="525" alt="image" src="https://github.com/user-attachments/assets/ed4117a9-9bce-4138-8db3-a05db8af9ddb" />
 
+**Evaluación del proceso**
+
+Según la rubrica, mi nota sería 5 porque hice las 5 actividades completas y estoy haciendo la autoevaluación. 
+Defendiendo mi nota, considero que hice un buen trabajo porque de verdad hice todo lo que mi mente podía para conseguir actividades que fueran increíbles, no solo con el apply, sino en general. Busqué empaparme del tema y diseñar algo, que según yo fuera a ser "wow", creo que tenia expectativas muy altas para lo que yo podia conseguir, pero al menos, creo que tengo una base sólida para poder desarrollar esta idea mas a profundidad. Aprendí mucho sobre los flow fields y me gustó mucho crear una obra de arte generativo inspirado en la música que mas me gusta. 
