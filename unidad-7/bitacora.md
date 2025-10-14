@@ -545,6 +545,7 @@ function isPlugTouchingOutlet() {
 <img width="815" height="483" alt="image" src="https://github.com/user-attachments/assets/25a04169-7790-4c95-b0a4-93b3b033c899" />
 
 
-[Enlace sketch p5.js](https://editor.p5js.org/saragaravitop/sketches/4XWoxLwxh)
+[Enlace sketch p5.js](https://editor.p5js.org/saragaravitop/sketches/6ip43iaiy)
 
 [Enlace animación](https://upbeduco-my.sharepoint.com/:f:/g/personal/sara_garavito_upb_edu_co/EjH7kuhVu05EusH9GQ4vHmYBU93vsVQaS7tn16_BcRl3og?e=KPhf7y)
+
