@@ -549,3 +549,8 @@ function isPlugTouchingOutlet() {
 
 [Enlace animación](https://upbeduco-my.sharepoint.com/:f:/g/personal/sara_garavito_upb_edu_co/EjH7kuhVu05EusH9GQ4vHmYBU93vsVQaS7tn16_BcRl3og?e=KPhf7y)
 
+## Actoevaluación
+
+Mi autoevaluación es 5 porque complete las 3 actividades e hice la autoevaluación (solo que no la monte jaja), específicamente, además de hacer las actividades completas profundice en comprender lo que estaba haciendo, además de generar un diseño que no fuera creado por la IA. jeje
+
+
