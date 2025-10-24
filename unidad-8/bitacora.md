@@ -27,3 +27,41 @@ Ambas performances muestran visuales que no son pregrabados ni estáticos, sino 
 3. Reflexión sobre "liveness"
 
 La sensación de “liveness” es bastante envolvente, porque saber que los visuales se generan en tiempo real junto con la música crea una experiencia bastante única, espontánea y emocionalmente rica. No es solo una obra que se observa, sino una que se experimenta. Hay una tensión creativa entre lo sonoro y lo visual, como si ambos lenguajes se estuvieran improvisando mutuamente. Esto genera una conexión más íntima con el público porque la obra se visualiza dependiendo de cada usuario haciendola unica e irrepetible. 
+
+
+### Actividad 02
+
+1. pieza elegida
+
+    [Next to you - JVKE](https://youtu.be/D4EWJZeol_0?si=VNhrWUvaGQApjVAK)
+
+2. Concepto visual
+
+    **Idea inicial**
+   
+   >  La canción habla del amor entre dos personas, y al escucharla y pensar en visuales, me imaginaba muchos movimientos sincronizados entre dos entes, que mediante los movimientos se mostrara ese deseo (quizas) de estar cerca de alguien, like truly in love (es mi imaginario artístico que siento sobre el amor real y puro al escuchar esta canción, en general, las canciones de este chico me llevan a pensar cosas lindas del amor).
+   
+   **Concepto evolucionado**
+   
+    > El concepto gira en torno a dos bolitas, que pueden ser esferas de luz, que representan a dos personas que buscan estar juntas (los entes que habia mencionado antes). Su movimiento es una danza romántica, sincronizada con la música, donde se atraen, se separan y finalmente se encuentran. La letra de la canción menciona unos ojos caleidoscopicos, entonces los visuales se inspiran en un mundo caleidoscópico, donde el espacio se transforma según la emoción musical:
+   
+   > * en los versos suaves, las bolitas flotan entre formas geométricas translúcidas que giran lentamente.
+   > * en los estribillos o explosiones musicales, el entorno estalla en patrones caleidoscópicos, colores vibrantes y reflejos luminosos.
+   > * en algunas secciones, las bolitas viajan por espacios tipo geometry dash, moviéndose por paredes, saltando obstáculos o cambiando de gravedad según el ritmo.
+
+3. Inputs seleccionados
+
+    > * **Amplitud (volumen general):** afecta la escala y brillo de las esferas del fondo. Cuando la intensidas sube, el amor se ve mas fuerte, porque la imagen vibra y se ilumina. 
+
+    > * **Frecuencias graves (bajo y percusión):** afecta el movimiento rítmico del entorno (paredes, plataformas). Cada golpe de bajo impulsa el movimiento, como un latido que empuja a las bolitas a moverse.
+
+    > * **Frecuencias medias:** afecta a los cambios de forma en el caleidoscopio, y permite que la geometría se expanda o contraiga con la melodía.                           
+
+    > * **Frecuencias agudas (voces, sintetizadores altos):** afecta y crea chispas, partículas y destellos, que simbolizan la conexión emocional entre los personajes.
+
+    > * **Tempo (BPM):** es la sincronización de animaciones o transiciones de cámara, que mantiene la cohesión entre música y visuales, reforzando la sensación de coreografía.
+
+
+4. Algoritmos - técnicas
+
+5. Bocetos y explicaciones
