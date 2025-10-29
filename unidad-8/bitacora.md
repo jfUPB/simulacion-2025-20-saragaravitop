@@ -64,4 +64,31 @@ La sensación de “liveness” es bastante envolvente, porque saber que los vis
 
 4. Algoritmos - técnicas
 
+    >* **movimientos aleatorios suaves:** random walks con límites para mantener las cosas dentro del marco visual.
+   > * **motion 101:** atracción entre las esferas.
+   > * **añadir fuerzas de viento, gravitación, repulsión:** para formar los patrones caledoscopicos, para unir las esferas, y para separarlas, creando diferentes efectos en la narrativa de la historia.
+   > *** ondas sinusoides:** para controlar el ritmo de los patrones caledoscopicos.
+   > * **sistemas de particulas:** para que en fiferentes momentos en la canción hayan particulas que cambien con la música. quiero usar sistemas de sistemas, herencia y polimorfismo y repellers.
+   > * **flow fields:** es para la base del movimiento caledoscopico.
+   > * **Tipografia semantica:** para que hayan cambios, y atraer atención.
+  
+   **Otros algoritmos**
+   > * **shaders reactivos al audio:** para los colores, brillos y distorsiones que respondan a las frecuencias en tiempo real.
+   > * d**istorsiones radiales (caleidoscopicas):** generadas con simetria polar o fragmetación geometrica.
+   > * **interpolación de color:** transiciones entre las paletas de colores para generar emociones. 
+
 5. Bocetos y explicaciones
+
+> este es el primer boceto, donde muestro mis dos propuestas principales en lo que se basaría toda la obra.
+
+![Imagen de WhatsApp 2025-10-29 a las 12 53 08_4028c29d](https://github.com/user-attachments/assets/2aa0a553-3fed-4f64-8835-99c76fa1d470)
+
+> A continuación, bocetos ya con forma, color, y como quisiera que se viera.
+
+![Imagen de WhatsApp 2025-10-23 a las 19 17 12_b30a5f69](https://github.com/user-attachments/assets/aadd34bb-ca42-48d5-9e1d-276b19ee4ae8)
+
+![Imagen de WhatsApp 2025-10-23 a las 19 17 12_15e99211](https://github.com/user-attachments/assets/140a10fe-d607-4c0c-ad93-791ad5de2e07)
+
+![Imagen de WhatsApp 2025-10-23 a las 19 17 12_52b9bcff](https://github.com/user-attachments/assets/798e4ebf-532b-445a-a49a-87b6e3f1cfa5)
+
+![Imagen de WhatsApp 2025-10-23 a las 19 17 12_86a84320](https://github.com/user-attachments/assets/d4dbcf99-7b56-46b5-b0e1-1c57089fe665)
