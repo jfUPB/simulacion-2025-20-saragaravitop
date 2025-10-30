@@ -416,3 +416,8 @@ function lerpAngle(a, b, t){ let d = (b - a + 540) % 360 - 180; return (a + d * 
 
 
 <img width="731" height="520" alt="image" src="https://github.com/user-attachments/assets/7deb7525-583d-424a-97ce-75de1196d8c7" />
+
+
+Hola profeeee, mi autoevaluación es 5 porque según la rúbrica complete las 3 actividades, visualicé y analice las obras propuestas para tener inspiración y ver como otros artistas hicieron sus obras, luego pensé en un concepto a partir de una canción, pensé como quería que se viera visualmente y realice bocetos, pensé en los algoritmos e inputs que podría utilizar, finalmente, creo que realice un buen trabajo consciente, aunque no quedará como lo plantee en un principio, la idea base si fue cumplida exitosamente. 
+
+
